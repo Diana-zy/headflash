@@ -126,7 +126,7 @@ export default {
       const adSenseConfig = {
         channel: this.channelId,
         pubId: "partner-pub-3887371527059481",
-        styleId: "5606577934",
+        styleId: "6451695337",
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
@@ -135,7 +135,7 @@ export default {
         terms: this.newInfo.terms,
         referrerAdCreative: this.newInfo.referrer_ad_creative,
         ivt: false,
-        adtest: "on"
+        adtest: "off"
       };
       // 初始化 _googCsa 并加载相关搜索广告
       // eslint-disable-next-line no-undef

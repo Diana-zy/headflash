@@ -67,11 +67,11 @@ export default {
         channel: channelId,
         pubId: "partner-pub-3887371527059481",
         query: `${this.input}`,
-        styleId: "5606577934",
+        styleId: "6451695337",
         adsafe: "low",
         adpage: 1,
         ivt: false,
-        adtest: "on"
+        adtest: "off"
       };
 
       // 初始化 _googCsa 并加载广告
