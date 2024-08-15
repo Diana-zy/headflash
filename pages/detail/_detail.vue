@@ -1,0 +1,220 @@
+<template>
+  <div class="page">
+    <Header />
+    <article class="article">
+      <h1 class="article-title">{{ newInfo.name }}</h1>
+      <div class="news-detail">{{ newInfo.first_paragraph }}</div>
+      <div id="relatedsearches1"> </div>
+
+      <div class="read-more" :class="{ hide: readMore }" @click="readMore = true">
+        {{ readMoreText[newInfo.language] }}
+      </div>
+      <!-- eslint-disable vue/no-v-html -->
+      <div class="news-detail hide" :class="{ show: readMore }" v-html="newInfo.content"></div>
+      <!--eslint-enable-->
+    </article>
+    <Footer :lang="newInfo.language" />
+  </div>
+</template>
+
+<script>
+export default {
+  async asyncData({ $axios, params, env }) {
+    const path = params.detail;
+    const lastDashIndex = path.lastIndexOf("-");
+    const id = path.substring(lastDashIndex + 1, path.length);
+
+    const data = await $axios.$get("/api/article/detail", {
+      params: {
+        site_id: env.SITE_ID,
+        article_id: id
+      }
+    });
+    data.content = data.content.replace(/<\/h4><p><br><br>|<br><br><\/p><h4>/g, (match) => {
+      return match.includes("</h4><p>") ? "</h4><p>" : "</p><h4>";
+    });
+    return { newInfo: data };
+  },
+  data() {
+    return {
+      channelId: "",
+      readMore: false,
+      readMoreText: {
+        en: "Read More>>",
+        ja: "続きを読む>>",
+        ko: "더 읽기>>",
+        zh_TW: "閱讀更多>>"
+      }
+    };
+  },
+  mounted: function () {
+    // 获取 URL 查询参数
+    const searchParams = new URLSearchParams(window.location.search);
+    // AdSense 配置参数
+    if (searchParams.has("channel")) {
+      this.channelId = searchParams.get("channel");
+    } else {
+      this.channelId = this.newInfo.channel || "";
+      console.log("channelId", this.channelId, this.newInfo);
+      if (this.channelId !== "") {
+        searchParams.set("channel", this.channelId);
+        const newUrl = `${window.location.origin}${
+          window.location.pathname
+        }?${searchParams.toString()}`;
+        window.history.replaceState({}, "", newUrl);
+      }
+    }
+
+    setTimeout(() => {
+      this.addAdSenseScript();
+    }, 0);
+    let lastScrollTop = 0;
+    let scrolledUpFromBottom = false;
+    let flag1 = false;
+    let flag2 = false;
+    let flag3 = false;
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+
+      // 判断用户是否向下滚动
+      if (scrollTop > lastScrollTop) {
+        scrolledUpFromBottom = false; // 如果用户向下滚动，重置标志
+        if (flag1 === false) {
+          // eslint-disable-next-line no-undef
+          dataLayer.push({ event: "SCROLL_D" });
+          flag1 = true;
+        }
+      }
+      // 判断用户是否向上滚动
+      else {
+        if (scrollTop + windowHeight >= docHeight - 5) {
+          // 加入小缓冲区以检测页面底部
+          scrolledUpFromBottom = true;
+        }
+
+        if (scrolledUpFromBottom) {
+          if (flag2 === false) {
+            // eslint-disable-next-line no-undef
+            dataLayer.push({ event: "SCROLL_BU" });
+            flag2 = true;
+          }
+        } else if (flag3 === false) {
+          // eslint-disable-next-line no-undef
+          dataLayer.push({ event: "SCROLL_U" });
+          flag3 = true;
+        }
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // 处理移动设备或负滚动
+    });
+  },
+  methods: {
+    addAdSenseScript() {
+      console.log("addAdSenseScript", this.newInfo.terms);
+      // 获取 URL 查询参数
+      const searchParams = new URLSearchParams(window.location.search);
+      const paramKeys = [];
+      // 遍历查询参数并将其添加到 paramKeys 数组中
+      for (const param of searchParams) {
+        paramKeys.push(param[0]);
+      }
+      const ignoredPageParams = paramKeys.join(",");
+
+      const adSenseConfig = {
+        channel: this.channelId,
+        pubId: "partner-pub-3887371527059481",
+        styleId: "5606577934",
+        adsafe: "low",
+        ignoredPageParams,
+        relatedSearchTargeting: "content",
+        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}`,
+        resultsPageQueryParam: "query",
+        terms: this.newInfo.terms,
+        referrerAdCreative: this.newInfo.referrer_ad_creative,
+        ivt: false,
+        adtest: "on"
+      };
+      // 初始化 _googCsa 并加载相关搜索广告
+      // eslint-disable-next-line no-undef
+      _googCsa("relatedsearch", adSenseConfig, {
+        container: "relatedsearches1", // 广告容器 ID
+        relatedSearches: 10, // 相关搜索广告数量
+        adLoadedCallback: function (loaded, response, isExperimentVariant, callbackOptions) {
+          console.log("adLoadedCallback", loaded, response, isExperimentVariant, callbackOptions);
+          if (response) {
+            // eslint-disable-next-line no-undef
+            dataLayer.push({ event: "C_AC" }); // 事件推送到 dataLayer
+            try {
+              const keys = Object.keys(callbackOptions.termPositions);
+              const numberOfKeys = keys.length;
+              const concatenatedKeys = keys.join(",");
+
+              const element = document.getElementById("master-1");
+              const height = parseFloat(element.style.height);
+              const result = Math.round(height / 105);
+
+              console.log("Number of keys:", numberOfKeys);
+              console.log("Concatenated keys:", concatenatedKeys);
+              console.log(result);
+              // eslint-disable-next-line no-undef
+              dataLayer.push({
+                event: "C_AC_IN",
+                num: result,
+                key1: numberOfKeys,
+                key2: concatenatedKeys
+              }); // 事件推送到 dataLayer
+            } catch (e) {
+              console.log(e);
+            }
+          }
+        }
+      });
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.article {
+  line-height: 19px;
+  font-family: "sesb";
+  padding-bottom: 32px;
+  border-bottom: 1px solid #ececee;
+  min-height: calc(100vh - 72px - 56px - 64px);
+}
+.article-title {
+  font-size: 26px;
+  font-family: "seb";
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 24px;
+}
+.read-more {
+  line-height: 4;
+}
+.hide {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
+@media screen and (max-width: 750px) {
+  .article {
+    line-height: vw(38);
+    padding-bottom: vw(32);
+    border-bottom: vw(2) solid #ececee;
+    min-height: calc(100vh - vw(304));
+  }
+  .article-title {
+    font-size: vw(36);
+    line-height: vw(48);
+    margin-bottom: vw(32);
+  }
+  .article-desc {
+    margin-bottom: vw(48);
+  }
+}
+</style>

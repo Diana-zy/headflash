@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head {{ HEAD_ATTRS }}>
+    <meta charset="UTF-8" />
+    {{ HEAD }}
+    <script async="async" src="https://www.google.com/adsense/search/ads.js"></script>
+    <!-- other head elements from your page -->
+    <script type="text/javascript" charset="utf-8">
+      (function (g, o) {
+        (g[o] =
+          g[o] ||
+          function () {
+            (g[o]["q"] = g[o]["q"] || []).push(arguments);
+          }),
+          (g[o]["t"] = 1 * new Date());
+      })(window, "_googCsa");
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2NK005BSP3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-2NK005BSP3");
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NW8RHM2B");
+    </script>
+    <!-- End Google Tag Manager -->
+    <!--
+    <script>
+      window.bgdataLayer = window.bgdataLayer || [];
+      function bge() {
+        bgdataLayer.push(arguments);
+      }
+      bge("init", "904721674747384832");
+    </script>
+    <script async src="https://api.imotech.video/ad/events.js?pixel_id=904721674747384832"></script> 
+    -->
+
+    <script>
+      window.addEventListener("load", function () {
+        if ("serviceWorker" in window.navigator) {
+          window.navigator.serviceWorker
+            .register("/sw.js")
+            .then(() => {})
+            .catch(() => {});
+        }
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          window.deferredPrompt = e;
+        });
+      });
+    </script>
+  </head>
+  <body {{ BODY_ATTRS }} tabindex="0">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NW8RHM2B"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {{ APP }}
+    <script>
+      window.done = false;
+
+      window.addEventListener("beforeunload", () => {
+        if (window.done) return;
+        const activeElement = document.activeElement;
+        const src = activeElement.getAttribute("src");
+        let eventName = "";
+
+        if (src && src.indexOf("afs/ads?") !== -1) {
+          if (activeElement.getAttribute("title")) {
+            // start
+            // try {
+            //   const searchParams = new URLSearchParams(window.location.search);
+            //   const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
+            //   const channelMap = {
+            //     6406205525: "phone_button", // 4
+            //     1757453425: "consult", // 7
+            //     7887747508: "button" // 8
+
+            //     // 8611149732: "button", // 1
+            //     // 4671904727: "consult",  // 2
+            //     // 3358823059: "ec_detail_view", // 3
+            //     // 6406205525: "ec_add_cart", // 4
+            //     // 9732659710: "ec_register", // 5
+            //     // 5863369336: "ec_order", // 6
+            //     // 1757453425: "ec_purchase", // 7
+            //     // 7887747508: "form_detail", // 8
+            //     // 6818208418: "form_button", // 9
+            //     // 4192045073: "form"  // 10
+            //   };
+            //   // aa
+            //   bge("event", channelMap[channelId], { configId: "904721674747384832" });
+
+            //   // const bbg_data = searchParams.has("bbg") ? searchParams.get("bbg") : ""; // Bigo Ad 归因标识
+            //   // fetch(
+            //   //   "https://api.bytegle.site/bigoad/trackingevent?bbg=" +
+            //   //     bbg_data +
+            //   //     "&pixel_id=904754636867377664&event_id=" +
+            //   //     channelMap[channelId]
+            //   // );
+            // } catch (error) {
+            //   console.error("Error:", error);
+            // }
+            // end
+            eventName = "T_AR";
+          } else {
+            eventName = "T_AC";
+          }
+        } else {
+          let elementUrlIndex = window.dataLayer.findIndex(
+            ({ event: eventType }) => "gtm.linkClick" === eventType
+          );
+          if (-1 !== elementUrlIndex) {
+            eventName = "D_RE";
+          }
+        }
+        eventName && dataLayer.push({ event: eventName });
+        window.done = true;
+      });
+
+      window.addEventListener("blur", () => {
+        const activeElement = document.activeElement;
+        const src = activeElement.getAttribute("src");
+
+        if (src && src.indexOf("afs/ads?") !== -1) {
+          if (activeElement.getAttribute("title")) {
+            dataLayer.push({ event: "D_AR" });
+          } else {
+            dataLayer.push({ event: "D_AC" });
+          }
+        }
+      });
+
+      window.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") {
+          setTimeout(() => {
+            window.done = false;
+            document.body.focus();
+          }, 0);
+        }
+      });
+    </script>
+  </body>
+</html>
