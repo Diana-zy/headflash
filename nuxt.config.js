@@ -32,7 +32,7 @@ export default {
     trailingSlash: true
   },
   head: {
-    title: "NewsBridge - Global News at Your Fingertips!",
+    title: "HeadFlash - Global News at Your Fingertips!",
     meta: [
       {
         name: "version",
@@ -86,12 +86,12 @@ export default {
   },
   modules: ["@nuxtjs/axios"],
   sitemap: {
-    hostname: "https://newsbridge.net/"
+    hostname: "https://headflash.net/"
   },
   pwa: {
     manifest: {
-      name: "NewsBridge",
-      short_name: "NewsBridge",
+      name: "HeadFlash",
+      short_name: "HeadFlash",
       description:
         "We are committed to delivering you the latest developments in various fields, including politics, economy, technology, culture, sports, and more.!",
       icons: [

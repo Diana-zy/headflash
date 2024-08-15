@@ -11,13 +11,13 @@
           ><CustomLink :to="`/cookies${lang === 'en' ? '' : '-' + lang}.html`" target="_blank">
             {{ cookiesText[lang] }}
           </CustomLink>
-          <a href="mailto:service@newsbridge.net">
+          <a href="mailto:service@headflash.net">
             {{ contactText[lang] }}
           </a>
         </div>
         <span>
           {{ copyRightText1[lang] }}
-          ©&nbsp; 2024 NewsBridge &nbsp;
+          ©&nbsp; 2024 HeadFlash &nbsp;
           {{ copyRightText2[lang] }}
         </span>
       </div>

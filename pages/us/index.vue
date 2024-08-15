@@ -3,7 +3,7 @@
     <Header />
     <main class="main">
       <h1>Contact Us</h1>
-      <p>Please feel free to contact us at service@newsbridge.net </p>
+      <p>Please feel free to contact us at service@headflash.net </p>
     </main>
     <Footer />
   </div>
