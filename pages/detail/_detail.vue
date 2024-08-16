@@ -4,13 +4,29 @@
     <article class="article">
       <h1 class="article-title">{{ newInfo.name }}</h1>
       <div class="news-detail">{{ newInfo.first_paragraph }}</div>
+      <NuxtImg
+        format="auto"
+        fit="cover"
+        width="1200"
+        :src="newInfo.cover"
+        :alt="newInfo.name"
+        class="article-img"
+        preload
+      />
       <div id="relatedsearches1"> </div>
-
-      <div class="read-more" :class="{ hide: readMore }" @click="readMore = true">
+      <div
+        class="read-more"
+        :class="{ hide: readMore || !newInfo.channel }"
+        @click="readMore = true"
+      >
         {{ readMoreText[newInfo.language] }}
       </div>
       <!-- eslint-disable vue/no-v-html -->
-      <div class="news-detail hide" :class="{ show: readMore }" v-html="newInfo.content"></div>
+      <div
+        class="news-detail"
+        :class="{ hide: newInfo.channel, show: readMore }"
+        v-html="newInfo.content"
+      ></div>
       <!--eslint-enable-->
     </article>
     <Footer :lang="newInfo.language" />
@@ -178,6 +194,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.article-img {
+  width: 100%;
+  margin-bottom: 1em;
+}
 .article {
   line-height: 19px;
   font-family: "sesb";
