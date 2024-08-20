@@ -67,6 +67,56 @@ export default {
       }
     };
   },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: this.newInfo.language
+      },
+      title: this.newInfo.name + " - HeadFlash",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.newInfo.first_paragraph
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.newInfo.terms
+        },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: this.newInfo.name
+        },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.newInfo.first_paragraph
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: `https://HeadFlash.com/detail/${this.newInfo.path}/`
+        },
+        {
+          hid: "og:locale",
+          property: "og:locale",
+          content: this.newInfo.language
+        },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: this.newInfo.cover
+        },
+        {
+          hid: "og:type",
+          property: "og:type",
+          content: "article"
+        }
+      ]
+    };
+  },
   mounted: function () {
     // 获取 URL 查询参数
     const searchParams = new URLSearchParams(window.location.search);

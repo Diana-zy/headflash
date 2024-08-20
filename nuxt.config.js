@@ -62,6 +62,11 @@ export default {
         name: "keywords",
         content:
           "news, Frontier news, latest news, IT news, sports news, fashion news, car news, healthy news"
+      },
+      {
+        hid: "og:site_name",
+        property: "og:site_name",
+        content: "HeadFlash"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
