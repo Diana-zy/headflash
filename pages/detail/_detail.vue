@@ -3,33 +3,31 @@
     <Header />
     <article class="article">
       <h1 class="article-title">{{ newInfo.name }}</h1>
-      <div v-show="showDesc">
-        <div class="news-detail">{{ newInfo.first_paragraph }}</div>
-        <NuxtImg
-          format="auto"
-          fit="cover"
-          width="600"
-          :src="newInfo.cover"
-          :alt="newInfo.name"
-          class="article-img"
-          preload
-          @load="showDesc = true"
-        />
-        <div id="relatedsearches1"> </div>
-        <div
-          class="read-more"
-          :class="{ hide: readMore || !newInfo.channel }"
-          @click="readMore = true"
-        >
-          {{ readMoreText[newInfo.language] }}
-        </div>
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          class="news-detail"
-          :class="{ hide: newInfo.channel, show: readMore }"
-          v-html="newInfo.content"
-        ></div>
+      <div class="news-detail">{{ newInfo.first_paragraph }}</div>
+      <div id="relatedsearches1"> </div>
+      <div
+        class="read-more"
+        :class="{ hide: readMore || !newInfo.channel }"
+        @click="readMore = true"
+      >
+        {{ readMoreText[newInfo.language] }}
       </div>
+      <NuxtImg
+        format="auto"
+        fit="cover"
+        width="600"
+        :src="newInfo.cover"
+        :alt="newInfo.name"
+        class="article-img"
+        :class="{ hide: newInfo.channel, show: readMore }"
+        preload
+      />
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        class="news-detail"
+        :class="{ hide: newInfo.channel, show: readMore }"
+        v-html="newInfo.content"
+      ></div>
       <!--eslint-enable-->
     </article>
     <Footer :lang="newInfo.language" />
@@ -58,7 +56,7 @@ export default {
     return {
       channelId: "",
       readMore: false,
-      showDesc: false,
+      // showDesc: false,
       readMoreText: {
         en: "Read More>>",
         ja: "続きを読む>>",
