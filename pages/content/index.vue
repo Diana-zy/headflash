@@ -97,9 +97,13 @@ export default {
             // eslint-disable-next-line no-undef
             dataLayer.push({ event: "C_AC" }); // 事件推送到 dataLayer
             try {
-              const keys = Object.keys(callbackOptions.termPositions);
-              const numberOfKeys = keys.length;
-              const concatenatedKeys = keys.join(",");
+              let numberOfKeys = 0;
+              let concatenatedKeys = "miss";
+              if (callbackOptions.termPositions) {
+                const keys = Object.keys(callbackOptions.termPositions);
+                numberOfKeys = keys.length;
+                concatenatedKeys = keys.join(",");
+              }
 
               const element = document.getElementById("master-1");
               const height = parseFloat(element.style.height);
