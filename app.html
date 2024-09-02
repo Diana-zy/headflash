@@ -41,6 +41,14 @@
     </script>
     <!-- End Google Tag Manager -->
     <script>
+      window.bgdataLayer = window.bgdataLayer || [];
+      function bge() {
+        bgdataLayer.push(arguments);
+      }
+      bge("init", "904831856669662464");
+    </script>
+    <script async src="https://api.imotech.video/ad/events.js?pixel_id=904831856669662464"></script>
+    <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in window.navigator) {
           window.navigator.serviceWorker
@@ -78,6 +86,9 @@
 
         if (src && src.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
+            try {
+              bge("event", "button", { configId: "904803718856417024" });
+            } catch (e) {}
             eventName = "T_AR";
           } else {
             eventName = "T_AC";
