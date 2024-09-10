@@ -184,6 +184,7 @@ export default {
       console.log("addAdSenseScript", this.newInfo.terms);
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
+      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
       const paramKeys = [];
       // 遍历查询参数并将其添加到 paramKeys 数组中
       for (const param of searchParams) {
@@ -198,7 +199,9 @@ export default {
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
-        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}`,
+        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
+          ttclid && `&ttclid=${ttclid}`
+        }`,
         resultsPageQueryParam: "query",
         terms: this.newInfo.terms,
         referrerAdCreative: this.newInfo.referrer_ad_creative,

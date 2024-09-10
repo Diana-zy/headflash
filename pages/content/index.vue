@@ -60,6 +60,7 @@ export default {
       const self = this;
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
+      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
       const paramKeys = [];
 
       // 遍历查询参数并将其添加到 paramKeys 数组中
@@ -78,7 +79,9 @@ export default {
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
-        resultsPageBaseUrl: `${window.location.origin}/search/?afs&partner_param=param&channel=${channelId}`,
+        resultsPageBaseUrl: `${
+          window.location.origin
+        }/search/?afs&partner_param=param&channel=${channelId}${ttclid && `&ttclid=${ttclid}`}`,
         resultsPageQueryParam: "query",
         terms: this.input + ", " + this.keywords,
         referrerAdCreative: "search for ads related to " + this.input + ", " + this.keywords,
