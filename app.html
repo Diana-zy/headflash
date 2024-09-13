@@ -89,7 +89,16 @@
             // tt - start
             const searchParams = new URLSearchParams(window.location.search);
             const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
-            if (["6033218701", "3264520910"].indexOf(channelId) !== -1) {
+            if (
+              [
+                "6033218701",
+                "3264520910",
+                "3324230667",
+                "1119410166",
+                "9972463713",
+                "8392594638"
+              ].indexOf(channelId) !== -1
+            ) {
               try {
                 // 发送数据到服务器
                 fetch("https://api.tapmygame.com/api/common/stkrs", {
