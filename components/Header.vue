@@ -51,6 +51,8 @@ export default {
     };
   },
   mounted() {
+    this.input = this.$route.query.query || "";
+
     // 判断是否支持 PWA
     if ("serviceWorker" in navigator && "PushManager" in window) {
       if (window.deferredPrompt) {

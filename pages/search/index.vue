@@ -3,13 +3,12 @@
     <Header />
     <main class="main">
       <div id="afscontainer1"> </div>
-
+      <div id="afscontainer2"> </div>
+      <div id="needfulinfoRelatedsearches"> </div>
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
         <news-item-3 v-for="(item, i) in news" :key="i" :item="item"> </news-item-3>
       </section>
-
-      <div id="afscontainer2"> </div>
     </main>
     <Footer />
   </div>
@@ -21,29 +20,24 @@ export default {
     return {
       news: [], // 新闻列表
       input: "", // 搜索输入
-      keywords: "" // 关键字
+      keywords: "", // 关键字
+      channelId: "" // 频道 ID
     };
   },
   mounted() {
     this.input = this.$route.query.query || "";
-    this.input && this.searchTerms();
+    this.input && this.addAdSense();
     this.input && this.searchNews();
+
+    const searchParams = new URLSearchParams(window.location.search);
+    this.channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
   },
   methods: {
-    async searchTerms() {
-      try {
-        const response = await this.$axios.$get("/api/article/keywords", {
-          params: {
-            site_id: process.env.SITE_ID,
-            key: this.input
-          }
-        });
-
-        this.keywords = response.terms;
-        this.addAdSenseScript(); // 添加 AdSense 脚本
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    addAdSense() {
+      setTimeout(() => {
+        this.addAdSenseScript();
+        this.addAdSenseScript2();
+      }, 0);
     },
     async searchNews() {
       try {
@@ -58,16 +52,14 @@ export default {
       }
     },
     addAdSenseScript: function () {
-      const searchParams = new URLSearchParams(window.location.search);
-      const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
       const queryString = this.input;
 
       // 配置 AdSense 参数
       const adSenseConfig = {
-        channel: channelId,
+        channel: this.channelId,
         pubId: "partner-pub-3887371527059481",
         query: `${this.input}`,
-        styleId: "6451695337",
+        styleId: "5402771445",
         adsafe: "low",
         adpage: 1,
         ivt: false,
@@ -107,6 +99,50 @@ export default {
           number: 3 // 第二个广告容器中的广告数量
         }
       );
+    },
+    addAdSenseScript2() {
+      console.log("addAdSenseScript");
+      // 获取 URL 查询参数
+      const searchParams = new URLSearchParams(window.location.search);
+      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
+      const paramKeys = [];
+      const queryString = this.input;
+      // 遍历查询参数并将其添加到 paramKeys 数组中
+      for (const param of searchParams) {
+        paramKeys.push(param[0]);
+      }
+      const ignoredPageParams = paramKeys.join(",");
+
+      const adSenseConfig = {
+        channel: this.channelId,
+        pubId: "partner-pub-3887371527059481",
+        styleId: "7495644912",
+        adsafe: "low",
+        ignoredPageParams,
+        relatedSearchTargeting: "query",
+        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
+          ttclid && `&ttclid=${ttclid}`
+        }`,
+        resultsPageQueryParam: "query",
+        query: `${this.input}`,
+        ivt: false,
+        adtest: "off"
+      };
+      // 初始化 _googCsa 并加载相关搜索广告
+      // eslint-disable-next-line no-undef
+      _googCsa("relatedsearch", adSenseConfig, {
+        container: "needfulinfoRelatedsearches", // 广告容器 ID
+        relatedSearches: 8, // 相关搜索广告数量
+        adLoadedCallback: function (loaded, response, isExperimentVariant, callbackOptions) {
+          console.log("adLoadedCallback", loaded, response, isExperimentVariant, callbackOptions);
+          if (response) {
+            // eslint-disable-next-line no-undef
+            dataLayer.push({ event: "C_AC" }); // 事件推送到 dataLayer
+            // eslint-disable-next-line no-undef
+            dataLayer.push({ event: "C_AC_IN", query: queryString }); // 事件推送到 dataLayer
+          }
+        }
+      });
     }
   }
 };

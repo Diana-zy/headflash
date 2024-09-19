@@ -1,11 +1,11 @@
 // 模拟点击链接
 export function simulateAFSSearch(value) {
-  const targetPath = "/content/";
+  const targetPath = "/search/";
 
   const url = generateCustomPath(targetPath);
 
   const link = document.createElement("a");
-  link.href = `${url}&text=${value}`;
+  link.href = `${url}&query=${value}`;
   link.style.display = "none";
   document.body.appendChild(link);
   link.click();
@@ -33,6 +33,7 @@ export function generateCustomLink(url) {
   currentParams.delete("from");
   if (currentPathname === "/search/" || currentPathname === "/content/") {
     currentParams.delete("text");
+    currentParams.delete("query");
   }
 
   const currentDomain = window.location.host;
@@ -96,6 +97,7 @@ export function generateCustomPath(url) {
   currentParams.delete("from");
   if (currentPathname === "/search/" || currentPathname === "/content/") {
     currentParams.delete("text");
+    currentParams.delete("query");
   }
 
   // 生成新的查询参数字符串
