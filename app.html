@@ -281,6 +281,9 @@
             eventName = "T_AC";
           }
         } else if (src && src.indexOf("afs/ads/i/") !== -1) {
+          try {
+            kwaiq.instance("259483356799651").track("buttonClick");
+          } catch (e) {}
           eventName = "T_AG";
         } else {
           let elementUrlIndex = window.dataLayer.findIndex(
