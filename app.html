@@ -119,45 +119,61 @@
             }
             // tt - end
             // 快手 - start
-            // try {
-            //   // 发送数据到服务器
-            //   fetch("http://www.adsnebula.com/log/common/api", {
-            //     method: "POST",
-            //     headers: {
-            //       "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //       access_token: "ZubONfxCCsuhIZsapsbhO-ulFYL75ej-pyxnQOOLMcA",
-            //       // clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
-            //       clickid: "QfAjmVSx4ahoE1JwKYjn9g",
-            //       event_name: "EVENT_BUTTON_CLICK",
-            //       pixelId: "259573969920614",
-            //       testFlag: false,
-            //       trackFlag: true, //测试时为true, 正式投放时为false
-            //       is_attributed: 1,
-            //       mmpcode: "PL",
-            //       pixelSdkVersion: "9.9.9"
-            //     })
-            //   });
-            // } catch (e) {}
+            try {
+              // 发送数据到服务器
+              fetch("http://www.adsnebula.com/log/common/api", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  access_token: "3ISrR6AGATmm3353cvYTOiWtHDj02IaL_vwcIBljmPY",
+                  clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
+                  event_name: "EVENT_BUTTON_CLICK",
+                  pixelId: "260351615285613",
+                  testFlag: false,
+                  trackFlag: false, //测试时为true, 正式投放时为false
+                  is_attributed: 1,
+                  mmpcode: "PL",
+                  pixelSdkVersion: "9.9.9"
+                })
+              });
+            } catch (e) {}
             // 快手 - end
             // bigo - start
             try {
               bge("event", "button", { configId: "904831856669662464" });
             } catch (e) {}
             // bigo - end
-            // try {
-            //   kwaiq.instance("259483356799651").track("buttonClick");
-            // } catch (e) {}
             eventName = "T_AR";
           } else {
             eventName = "T_AC";
           }
         } else if (src && src.indexOf("afs/ads/i/") !== -1) {
-          // try {
-          //   kwaiq.instance("259483356799651").track("buttonClick");
-          // } catch (e) {}
+          // 点击购物广告
           eventName = "T_AG";
+          // 快手 - start
+          try {
+            // 发送数据到服务器
+            fetch("http://www.adsnebula.com/log/common/api", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                access_token: "3ISrR6AGATmm3353cvYTOiWtHDj02IaL_vwcIBljmPY",
+                clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
+                event_name: "EVENT_BUTTON_CLICK",
+                pixelId: "260351615285613",
+                testFlag: false,
+                trackFlag: false, //测试时为true, 正式投放时为false
+                is_attributed: 1,
+                mmpcode: "PL",
+                pixelSdkVersion: "9.9.9"
+              })
+            });
+          } catch (e) {}
+          // 快手 - end
         } else {
           let elementUrlIndex = window.dataLayer.findIndex(
             ({ event: eventType }) => "gtm.linkClick" === eventType
