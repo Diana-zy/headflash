@@ -83,12 +83,12 @@
         const activeElement = document.activeElement;
         const src = activeElement.getAttribute("src");
         let eventName = "";
-
+        const searchParams = new URLSearchParams(window.location.search);
+        const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
+        
         if (src && src.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
             // tt - start
-            const searchParams = new URLSearchParams(window.location.search);
-            const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
             if (
               [
                 "6033218701",
