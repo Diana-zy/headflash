@@ -85,7 +85,7 @@
         let eventName = "";
         const searchParams = new URLSearchParams(window.location.search);
         const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
-        
+
         if (src && src.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
             // tt - start
@@ -127,12 +127,12 @@
                   "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                  access_token: "3ISrR6AGATmm3353cvYTOiWtHDj02IaL_vwcIBljmPY",
+                  access_token: "y0nbLvass0lrWxYORSc3ZnuWJxjHE28R6tEbMuKOYfg",
                   clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
                   event_name: "EVENT_ADD_TO_CART",
-                  pixelId: "260351615285613",
+                  pixelId: "261108496750613",
                   testFlag: false,
-                  trackFlag: false, //测试时为true, 正式投放时为false
+                  trackFlag: false, // 测试时为true, 正式投放时为false
                   is_attributed: 1,
                   mmpcode: "PL",
                   pixelSdkVersion: "9.9.9"
