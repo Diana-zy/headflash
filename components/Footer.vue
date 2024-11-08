@@ -43,29 +43,34 @@ export default {
         en: "Terms of Service",
         ja: "利用規約",
         ko: "서비스 약관",
-        zh_TW: "服務條款"
+        zh_TW: "服務條款",
+        pt: "Termos de Serviço" // 葡萄牙语
       },
       privacyText: {
         en: "Privacy Policy",
         ja: "プライバシーポリシー",
         ko: "개인 정보 정책",
+        pt: "Política de Privacidade", // 葡萄牙语
         zh_TW: "隱私政策"
       },
       cookiesText: {
         en: "Cookies Policy",
         ja: "クッキーポリシー",
+        pt: "Política de Cookies", // 葡萄牙语
         ko: "쿠키 정책",
         zh_TW: "Cookie 政策"
       },
       contactText: {
         en: "Contact",
         ja: "連絡先",
+        pt: "Contato", // 葡萄牙语
         ko: "연락하다",
         zh_TW: "聯絡"
       },
       copyRightText1: {
         en: "Copyright",
         ja: "著作権",
+        pt: "Direitos Autorais", // 葡萄牙语
         ko: "모든 권리 보유",
         zh_TW: "Copyright"
       },
@@ -73,6 +78,7 @@ export default {
         en: "All rights reserved",
         ja: "無断複写・転載を禁じます",
         ko: "저작권",
+        pt: "Todos os direitos reservados", // 葡萄牙语
         zh_TW: "All rights reserved"
       }
     };
