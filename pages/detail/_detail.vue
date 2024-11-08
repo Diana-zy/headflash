@@ -10,7 +10,7 @@
         :class="{ hide: readMore || !newInfo.channel }"
         @click="readMore = true"
       >
-        {{ readMoreText[newInfo.language] }}
+        {{ readMoreText[newInfo.language || "en"] }}
       </div>
       <NuxtImg
         format="auto"
@@ -58,6 +58,7 @@ export default {
       readMore: false,
       // showDesc: false,
       readMoreText: {
+        pt: "Leia Mais>>", // 葡萄牙语
         en: "Read More>>",
         ja: "続きを読む>>",
         ko: "더 읽기>>",
