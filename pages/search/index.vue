@@ -26,7 +26,7 @@ export default {
   },
   mounted() {
     this.input = this.$route.query.query || "";
-    this.input && this.addAdSense();
+    // this.input && this.addAdSense();
     this.input && this.searchNews();
 
     const searchParams = new URLSearchParams(window.location.search);

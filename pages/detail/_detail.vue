@@ -134,9 +134,9 @@ export default {
       }
     }
 
-    setTimeout(() => {
-      this.addAdSenseScript();
-    }, 0);
+    // setTimeout(() => {
+    //   this.addAdSenseScript();
+    // }, 0);
     let lastScrollTop = 0;
     let scrolledUpFromBottom = false;
     let flag1 = false;

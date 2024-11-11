@@ -39,7 +39,7 @@ export default {
         });
 
         this.keywords = response.terms;
-        this.addAdSenseScript(); // 添加 AdSense 脚本
+        // this.addAdSenseScript(); // 添加 AdSense 脚本
       } catch (error) {
         console.error("Error fetching data:", error);
       }
