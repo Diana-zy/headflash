@@ -75,8 +75,8 @@ export default {
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
-        pubId: "partner-pub-3887371527059481",
-        styleId: "6451695337",
+        pubId: "partner-pub-1853000876464912",
+        styleId: "3796162767",
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",

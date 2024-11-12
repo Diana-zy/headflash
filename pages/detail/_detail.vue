@@ -134,9 +134,9 @@ export default {
       }
     }
 
-    // setTimeout(() => {
-    //   this.addAdSenseScript();
-    // }, 0);
+    setTimeout(() => {
+      this.addAdSenseScript();
+    }, 0);
     let lastScrollTop = 0;
     let scrolledUpFromBottom = false;
     let flag1 = false;
@@ -196,8 +196,8 @@ export default {
 
       const adSenseConfig = {
         channel: this.channelId,
-        pubId: "partner-pub-3887371527059481",
-        styleId: "6451695337",
+        pubId: "partner-pub-1853000876464912",
+        styleId: "3796162767",
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
