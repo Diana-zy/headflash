@@ -3,7 +3,7 @@
     <Header />
     <main class="main">
       <div id="afscontainer1"> </div>
-      <div id="relatedsearches1"> </div>
+      <div id="relatedstyle2"> </div>
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
         <news-item-3 v-for="(item, i) in news" :key="i" :item="item"> </news-item-3>
@@ -123,7 +123,7 @@ export default {
       // 初始化 _googCsa 并加载相关搜索广告
       // eslint-disable-next-line no-undef
       _googCsa("relatedsearch", adSenseConfig, {
-        container: "relatedsearches1", // 广告容器 ID
+        container: "relatedstyle2", // 广告容器 ID
         relatedSearches: 8, // 相关搜索广告数量
         adLoadedCallback: function (loaded, response, isExperimentVariant, callbackOptions) {
           console.log("adLoadedCallback", loaded, response, isExperimentVariant, callbackOptions);
