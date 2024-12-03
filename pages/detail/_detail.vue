@@ -12,6 +12,8 @@
       >
         {{ readMoreText[newInfo.language || "en"] }}
       </div>
+      <google-ad-preload ad-slot="7045171250" />
+
       <NuxtImg
         format="auto"
         fit="cover"
@@ -50,6 +52,7 @@ export default {
     data.content = data.content.replace(/<\/h4><p><br><br>|<br><br><\/p><h4>/g, (match) => {
       return match.includes("</h4><p>") ? "</h4><p>" : "</p><h4>";
     });
+    console.log("data", data.content);
     return { newInfo: data };
   },
   data() {

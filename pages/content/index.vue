@@ -1,57 +1,46 @@
 <template>
   <div class="page">
-    <Header />
     <main class="main">
-      <div id="relatedsearches1"> </div>
-      <h2 class="title-h2">Web Results</h2>
-      <section class="news-box-3">
-        <news-item-3 v-for="(item, i) in news" :key="i" :item="item"> </news-item-3>
+      <google-ad-small class="small-ad-1" ad-slot="1809420083" />
+      <section class="home-search">
+        <div class="search-group">
+          <input
+            v-model="input"
+            placeholder="Search Anything"
+            class="search"
+            name="search"
+            @keyup.enter="search"
+          />
+          <i v-show="input != ''" class="icon-clear" @click="clear"></i>
+          <i class="icon-search" @click="search"></i>
+        </div>
       </section>
-      <ad-loading v-if="searchLoading"></ad-loading>
+      <div id="relatedsearches1"> </div>
+      <google-ad ad-slot="2955836717" />
     </main>
     <Footer />
   </div>
 </template>
 
 <script>
+import { simulateAFSSearch } from "~/utils/utils";
+
 export default {
   data() {
     return {
       news: [], // 新闻列表
       input: "", // 搜索输入
-      searchLoading: true, // 搜索加载状态
       keywords: "" // 关键字
     };
   },
   mounted() {
-    this.input = this.$route.query.text || "";
+    this.input = this.$route.query.userInput || "";
     this.input && this.searchTerms();
-    this.input && this.searchNews();
   },
   methods: {
-    async searchTerms() {
+    searchTerms() {
       try {
-        const response = await this.$axios.$get("/api/article/keywords", {
-          params: {
-            site_id: process.env.SITE_ID,
-            key: this.input
-          }
-        });
-
-        this.keywords = response.terms;
-        // this.addAdSenseScript(); // 添加 AdSense 脚本
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    },
-    async searchNews() {
-      try {
-        const response = await this.$axios.$post("/api/article/search", {
-          site_id: process.env.SITE_ID,
-          key: this.input
-        });
-
-        this.news = response.list;
+        this.addAdSenseScript(); // 添加 AdSense 脚本
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -60,34 +49,36 @@ export default {
       const self = this;
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
-      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
-      const click_id = searchParams.has("click_id") ? searchParams.get("click_id") : "";
-      const paramKeys = [];
+      // const paramKeys = [];
 
-      // 遍历查询参数并将其添加到 paramKeys 数组中
-      for (const param of searchParams) {
-        paramKeys.push(param[0]);
-      }
+      // // 遍历查询参数并将其添加到 paramKeys 数组中
+      // for (const param of searchParams) {
+      //   paramKeys.push(param[0]);
+      // }
 
-      const ignoredPageParams = paramKeys.join(",");
+      // const ignoredPageParams = paramKeys.join(",");
       const channelId = searchParams.has("channel") ? searchParams.get("channel") : null;
-
+      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
+      // eslint-disable-next-line camelcase
+      const click_id = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
         pubId: "partner-pub-1853000876464912",
-        styleId: "3796162767",
+        styleId: "1130185010",
         adsafe: "low",
-        ignoredPageParams,
-        relatedSearchTargeting: "content",
+        // ignoredPageParams,
+        // relatedSearchTargeting: "query",
         resultsPageBaseUrl: `${
           window.location.origin
-        }/search/?afs&partner_param=param&channel=${channelId}${ttclid && `&ttclid=${ttclid}`}${
+        }/search/?afs&from=content&partner_param=param&channel=${channelId}${
+          ttclid && `&ttclid=${ttclid}`
+        }${
+          // eslint-disable-next-line camelcase
           click_id && `&click_id=${click_id}`
         }`,
         resultsPageQueryParam: "query",
-        terms: this.input + ", " + this.keywords,
-        referrerAdCreative: "search for ads related to " + this.input + ", " + this.keywords,
+        query: `${this.input}`,
         ivt: false,
         adtest: "off"
       };
@@ -96,7 +87,7 @@ export default {
       // eslint-disable-next-line no-undef
       _googCsa("relatedsearch", adSenseConfig, {
         container: "relatedsearches1", // 广告容器 ID
-        relatedSearches: 10, // 相关搜索广告数量
+        relatedSearches: 18, // 相关搜索广告数量
         adLoadedCallback: function (loaded, response, isExperimentVariant, callbackOptions) {
           console.log("Ad loaded:", loaded, response, isExperimentVariant, callbackOptions);
           if (response) {
@@ -110,14 +101,10 @@ export default {
                 numberOfKeys = keys.length;
                 concatenatedKeys = keys.join(",");
               }
-
               const element = document.getElementById("master-1");
               const height = parseFloat(element.style.height);
               const result = Math.round(height / 105);
 
-              console.log("Number of keys:", numberOfKeys);
-              console.log("Concatenated keys:", concatenatedKeys);
-              console.log(result);
               // eslint-disable-next-line no-undef
               dataLayer.push({
                 event: "C_AC_IN",
@@ -132,9 +119,168 @@ export default {
           self.searchLoading = false; // 加载完成，设置加载状态为 false
         }
       });
+    },
+    search() {
+      if (this.input.length < 1) {
+        this.$globalMethod.showNotification({
+          message: "Please enter at least 1 characters",
+          type: "warning"
+        });
+        return;
+      }
+
+      simulateAFSSearch(this.input);
+    },
+    clear() {
+      this.input = "";
+    },
+    clickWord(words) {
+      simulateAFSSearch(words);
     }
   }
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.main {
+  min-height: 100vh;
+}
+.home-search {
+  width: 100%;
+  margin-bottom: 32px;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .search-group {
+    position: relative;
+  }
+  .search {
+    width: 560px;
+    height: 48px;
+    background: #ffffff;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0);
+    border: 1px solid $color1;
+    border-radius: 4px;
+    padding-left: 16px;
+    padding-right: 126px;
+    font-size: 12px;
+    &::placeholder {
+      color: rgba($font1, 0.6);
+    }
+  }
+  .icon-search {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: -1px;
+    width: 64px;
+    height: 48px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    background-image: url("~/assets/images/icon-search.png");
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .icon-clear {
+    position: absolute;
+    right: 76px;
+    top: 12px;
+    cursor: pointer;
+    background-image: url("~/assets/images/icon-clear.png");
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+  }
+
+  .words-container {
+    margin-top: 24px;
+    width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 12px;
+  }
+
+  .marquee-group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 12px;
+    min-width: 100%;
+    // animation: scrollLeft 40s linear infinite;
+    justify-content: center;
+  }
+  .marquee:nth-child(even) {
+    margin-left: calc(vw(176) / -2);
+  }
+  .hot-words {
+    background: rgba(23, 23, 23, 0.35);
+    border-radius: 4px 4px 4px 4px;
+    padding: 6px 8px;
+    font-family: "se3";
+    font-size: 12px;
+    color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+  }
+}
+.small-ad-1 {
+  height: 100px;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto 2em;
+}
+@media screen and (max-width: 750px) {
+  .home-search {
+    width: 100vw;
+    margin-bottom: vw(38);
+    margin-left: vw(-46);
+    .search {
+      width: vw(658);
+      height: vw(80);
+      border-radius: vw(8);
+      padding-left: vw(34);
+      font-size: vw(24);
+      padding-right: vw(210);
+    }
+    .icon-search {
+      width: vw(128);
+      height: vw(80);
+      border-radius: 0 vw(8) vw(8) 0;
+      background-size: vw(48);
+    }
+    .icon-clear {
+      top: vw(24);
+      right: vw(144);
+      width: vw(32);
+      height: vw(32);
+    }
+    .words-container {
+      margin-top: vw(16);
+      width: 100%;
+    }
+    .hot-words {
+      border-radius: vw(8);
+      padding: vw(12) vw(16);
+      font-size: vw(24);
+    }
+  }
+  .small-ad-1 {
+    display: block;
+    height: vw(180);
+    max-width: 100%;
+    min-height: vw(180);
+  }
+}
+</style>

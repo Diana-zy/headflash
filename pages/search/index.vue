@@ -1,8 +1,10 @@
 <template>
-  <div class="page">
-    <Header />
+  <div v-show="!hide" class="page">
+    <Header v-if="!subdomain" />
     <main class="main">
       <div id="afscontainer1"> </div>
+      <google-ad-preload v-if="noAd" ad-slot="4363167594"></google-ad-preload>
+      <google-ad-preload v-if="noAd2" ad-slot="5676249263"></google-ad-preload>
       <div id="relatedstyle2"> </div>
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
@@ -20,10 +22,17 @@ export default {
       news: [], // 新闻列表
       input: "", // 搜索输入
       keywords: "", // 关键字
-      channelId: "" // 频道 ID
+      channelId: "", // 频道 ID
+      subdomain: false,
+      hide: true,
+      noAd: false,
+      noAd2: false
     };
   },
   mounted() {
+    window.location.hostname.includes("s.") && (this.subdomain = true);
+    this.hide = false;
+
     this.input = this.$route.query.query || "";
     this.input && this.addAdSense();
     this.input && this.searchNews();
@@ -85,6 +94,10 @@ export default {
               console.log(e);
             }
           } else {
+            this.noAd = true;
+            setTimeout(() => {
+              this.noAd2 = true;
+            }, 50);
             // eslint-disable-next-line no-undef
             dataLayer.push({ event: "FF_AR", query: queryString }); // 推送事件到 dataLayer
           }
@@ -96,6 +109,7 @@ export default {
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
       const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
+      // eslint-disable-next-line camelcase
       const click_id = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
       const queryString = this.input;
