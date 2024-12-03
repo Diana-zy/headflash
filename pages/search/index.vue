@@ -59,7 +59,7 @@ export default {
         console.error("Error fetching data:", error);
       }
     },
-    addAdSenseScript: function () {
+    addAdSenseScript() {
       const queryString = this.input;
 
       // 配置 AdSense 参数
@@ -74,6 +74,7 @@ export default {
         adtest: "off"
       };
 
+      const _this = this;
       // 初始化 _googCsa 并加载广告
       // eslint-disable-next-line no-undef
       _googCsa("ads", adSenseConfig, {
@@ -94,9 +95,9 @@ export default {
               console.log(e);
             }
           } else {
-            this.noAd = true;
+            _this.noAd = true;
             setTimeout(() => {
-              this.noAd2 = true;
+              _this.noAd2 = true;
             }, 50);
             // eslint-disable-next-line no-undef
             dataLayer.push({ event: "FF_AR", query: queryString }); // 推送事件到 dataLayer

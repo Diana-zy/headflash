@@ -28,9 +28,7 @@ import { simulateAFSSearch } from "~/utils/utils";
 export default {
   data() {
     return {
-      news: [], // 新闻列表
-      input: "", // 搜索输入
-      keywords: "" // 关键字
+      input: "" // 搜索输入
     };
   },
   mounted() {
@@ -46,7 +44,6 @@ export default {
       }
     },
     addAdSenseScript() {
-      const self = this;
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
       // const paramKeys = [];
@@ -116,7 +113,6 @@ export default {
               console.log(e);
             }
           }
-          self.searchLoading = false; // 加载完成，设置加载状态为 false
         }
       });
     },
