@@ -12,7 +12,7 @@
       >
         {{ readMoreText[newInfo.language || "en"] }}
       </div>
-      <google-ad-preload ad-slot="7045171250" />
+      <google-ad-preload class="google-ad-preload" ad-slot="7583463276" />
 
       <NuxtImg
         format="auto"
@@ -25,12 +25,18 @@
         preload
       />
       <!-- eslint-disable vue/no-v-html -->
-      <div
+      <!-- <div
         class="news-detail"
         :class="{ hide: newInfo.channel, show: readMore }"
         v-html="newInfo.content"
-      ></div>
+      ></div> -->
       <!--eslint-enable-->
+
+      <article-with-ads
+        :class="{ hide: newInfo.channel, show: readMore }"
+        :content="newInfo.content"
+        :char-interval="800"
+      />
     </article>
     <Footer :lang="newInfo.language" />
   </div>
@@ -52,7 +58,6 @@ export default {
     data.content = data.content.replace(/<\/h4><p><br><br>|<br><br><\/p><h4>/g, (match) => {
       return match.includes("</h4><p>") ? "</h4><p>" : "</p><h4>";
     });
-    console.log("data", data.content);
     return { newInfo: data };
   },
   data() {
@@ -282,6 +287,9 @@ export default {
     display: block;
   }
 }
+.google-ad-preload {
+  margin-bottom: 4px;
+}
 @media screen and (max-width: 750px) {
   .article {
     line-height: vw(38);
@@ -296,6 +304,9 @@ export default {
   }
   .article-desc {
     margin-bottom: vw(48);
+  }
+  .google-ad-preload {
+    margin-bottom: vw(10);
   }
 }
 </style>

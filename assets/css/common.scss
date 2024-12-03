@@ -70,6 +70,12 @@ main {
     margin: 1em 0;
     font-weight: bold;
   }
+  .title {
+    margin-bottom: 0;
+  }
+  .google-ad {
+    margin-bottom: 4px;
+  }
 }
 @media screen and (max-width: 750px) {
   main {
@@ -80,6 +86,9 @@ main {
     font-size: vw(30) !important;
     line-height: vw(48) !important;
     p {
+      margin-bottom: vw(10);
+    }
+    .google-ad {
       margin-bottom: vw(10);
     }
   }

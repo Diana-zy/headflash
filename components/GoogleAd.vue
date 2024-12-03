@@ -1,5 +1,5 @@
 <template>
-  <div ref="googleAdStyle">
+  <div ref="googleAdStyle" class="google-ad">
     <p class="title">Advertisement</p>
   </div>
 </template>

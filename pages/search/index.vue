@@ -3,8 +3,8 @@
     <Header v-if="!subdomain" />
     <main class="main">
       <div id="afscontainer1"> </div>
-      <google-ad-preload v-if="noAd" ad-slot="4363167594"></google-ad-preload>
-      <google-ad-preload v-if="noAd2" ad-slot="5676249263"></google-ad-preload>
+      <google-ad-preload v-if="noAd" ad-slot="6864443826"></google-ad-preload>
+      <google-ad-preload v-if="noAd2" ad-slot="5519572568"></google-ad-preload>
       <div id="relatedstyle2"> </div>
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
