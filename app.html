@@ -86,6 +86,11 @@
       window.done = false;
 
       window.addEventListener("beforeunload", () => {
+        // 提取标志变量和事件索引
+        const elementUrlIndex = window.dataLayer.findIndex(
+          ({ event: eventType }) => "gtm.linkClick" === eventType
+        );
+
         if (!window.isUnloaded && elementUrlIndex !== -1) {
           // 处理穿插广告埋点逻辑
           if (window.clickOpen === 1) {
@@ -95,11 +100,6 @@
           }
           window.isUnloaded = true;
         }
-
-        // 提取标志变量和事件索引
-        const elementUrlIndex = window.dataLayer.findIndex(
-          ({ event: eventType }) => "gtm.linkClick" === eventType
-        );
 
         if (window.done) return;
         const activeElement = document.activeElement;
