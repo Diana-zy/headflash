@@ -95,7 +95,11 @@ export function generateCustomPath(url) {
 
   // 删除不需要的查询参数
   currentParams.delete("from");
-  if (currentPathname === "/search/" || currentPathname === "/content/") {
+  if (
+    currentPathname === "/search/" ||
+    currentPathname === "/content/" ||
+    currentPathname === "/s/"
+  ) {
     currentParams.delete("text");
     currentParams.delete("query");
   }
