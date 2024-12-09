@@ -110,36 +110,6 @@
 
         if (src && src.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
-            // tt - start
-            if (
-              [
-                "6033218701",
-                "3264520910",
-                "3324230667",
-                "1119410166",
-                "9972463713",
-                "8392594638"
-              ].indexOf(channelId) !== -1
-            ) {
-              try {
-                // 发送数据到服务器
-                fetch("https://api.tapmygame.com/api/common/stkrs", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                    site_id: "headflash",
-                    user_agent: navigator.userAgent,
-                    // uid: HI_ID,
-                    cid: channelId,
-                    url: window.location.href,
-                    tid: searchParams.has("ttclid") ? searchParams.get("ttclid") : ""
-                  })
-                });
-              } catch (e) {}
-            }
-            // tt - end
             // 快手 - start
             try {
               // 发送数据到服务器

@@ -109,9 +109,7 @@ export default {
       console.log("addAdSenseScript");
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
-      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
-      // eslint-disable-next-line camelcase
-      const click_id = searchParams.has("click_id") ? searchParams.get("click_id") : "";
+      const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
       const queryString = this.input;
       // 遍历查询参数并将其添加到 paramKeys 数组中
@@ -128,8 +126,8 @@ export default {
         ignoredPageParams,
         relatedSearchTargeting: "query",
         resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
-          ttclid && `&ttclid=${ttclid}`
-        }${click_id && `&click_id=${click_id}`}`,
+          clickId && `&click_id=${clickId}`
+        }`,
         resultsPageQueryParam: "query",
         query: `${this.input}`,
         ivt: false,

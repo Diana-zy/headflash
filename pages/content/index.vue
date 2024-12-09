@@ -55,9 +55,7 @@ export default {
 
       // const ignoredPageParams = paramKeys.join(",");
       const channelId = searchParams.has("channel") ? searchParams.get("channel") : null;
-      const ttclid = searchParams.has("ttclid") ? searchParams.get("ttclid") : "";
-      // eslint-disable-next-line camelcase
-      const click_id = searchParams.has("click_id") ? searchParams.get("click_id") : "";
+      const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
@@ -69,10 +67,7 @@ export default {
         resultsPageBaseUrl: `${
           window.location.origin
         }/search/?afs&from=content&partner_param=param&channel=${channelId}${
-          ttclid && `&ttclid=${ttclid}`
-        }${
-          // eslint-disable-next-line camelcase
-          click_id && `&click_id=${click_id}`
+          clickId && `&click_id=${clickId}`
         }`,
         resultsPageQueryParam: "query",
         query: `${this.input}`,
