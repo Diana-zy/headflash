@@ -45,7 +45,6 @@ export default {
     addAdSense() {
       setTimeout(() => {
         this.addAdSenseScript();
-        this.addAdSenseScript2();
       }, 0);
     },
     async searchNews() {
