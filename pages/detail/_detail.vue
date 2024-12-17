@@ -204,7 +204,7 @@ export default {
       let adSenseConfig = {
         channel: this.channelId,
         pubId: "partner-pub-1853000876464912",
-        styleId: "3796162767",
+        styleId: "8180986228",
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
@@ -222,7 +222,7 @@ export default {
         adSenseConfig = {
           channel: this.channelId,
           pubId: "partner-pub-1853000876464912",
-          styleId: "3796162767",
+          styleId: "8180986228",
           adsafe: "low",
           ignoredPageParams,
           relatedSearchTargeting: "query",

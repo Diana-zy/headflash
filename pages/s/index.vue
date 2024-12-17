@@ -67,7 +67,7 @@ export default {
         channel: channelId,
         pubId: "partner-pub-1853000876464912",
         query: `${this.input}`,
-        styleId: "3796162767",
+        styleId: "8180986228",
         adsafe: "low",
         adpage: 1,
         ivt: false,

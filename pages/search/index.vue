@@ -83,7 +83,7 @@ export default {
         channel: channelId,
         pubId: "partner-pub-1853000876464912",
         query: queryString,
-        styleId: "3796162767",
+        styleId: "8180986228",
         adsafe: "low",
         ivt: false,
         resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${channelId}${
