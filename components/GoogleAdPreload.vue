@@ -1,6 +1,6 @@
 <template>
   <div ref="googleAdPreload">
-    <p class="title">Advertisement</p>
+    <p class="title">{{ title }}</p>
     <ins
       class="adsbygoogle"
       style="display: block"
@@ -18,11 +18,15 @@
 <script>
 export default {
   props: {
+    title: {
+      type: String,
+      default: "Advertisement"
+    },
     adSlot: {
       type: String,
       required: true
     }
-  },
+  }
 };
 </script>
 
