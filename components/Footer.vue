@@ -3,22 +3,31 @@
     <div class="copyright">
       <div class="copyright-content">
         <div class="copyright-content-1">
-          <CustomLink :to="`/eula${lang === 'en' ? '' : '-' + lang}.html`" target="_blank">
-            {{ eulaText[lang] }}
+          <CustomLink
+            :to="`/eula${['ja', 'ko', 'zh_TW'].indexOf(lang) === -1 ? '' : '-' + lang}.html`"
+            target="_blank"
+          >
+            {{ eulaText[lang] || eulaText["en"] }}
           </CustomLink>
-          <CustomLink :to="`/privacy${lang === 'en' ? '' : '-' + lang}.html`" target="_blank">
-            {{ privacyText[lang] }} </CustomLink
-          ><CustomLink :to="`/cookies${lang === 'en' ? '' : '-' + lang}.html`" target="_blank">
-            {{ cookiesText[lang] }}
+          <CustomLink
+            :to="`/privacy${['ja', 'ko', 'zh_TW'].indexOf(lang) === -1 ? '' : '-' + lang}.html`"
+            target="_blank"
+          >
+            {{ privacyText[lang] || privacyText["en"] }} </CustomLink
+          ><CustomLink
+            :to="`/cookies${['ja', 'ko', 'zh_TW'].indexOf(lang) === -1 ? '' : '-' + lang}.html`"
+            target="_blank"
+          >
+            {{ cookiesText[lang] || cookiesText["en"] }}
           </CustomLink>
           <a href="mailto:service@headflash.net">
-            {{ contactText[lang] }}
+            {{ contactText[lang] || contactText["en"] }}
           </a>
         </div>
         <span>
-          {{ copyRightText1[lang] }}
+          {{ copyRightText1[lang] || copyRightText1["en"] }}
           ©&nbsp; 2024 HeadFlash &nbsp;
-          {{ copyRightText2[lang] }}
+          {{ copyRightText2[lang] || copyRightText2["en"] }}
         </span>
       </div>
     </div>

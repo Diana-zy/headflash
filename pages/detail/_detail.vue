@@ -10,7 +10,7 @@
         :class="{ hide: readMore || !newInfo.channel }"
         @click="readMore = true"
       >
-        {{ readMoreText[newInfo.language || "en"] }}
+        {{ readMoreText[newInfo.language] || readMoreText["en"] }}
       </div>
       <google-ad-preload class="google-ad-preload" ad-slot="7583463276" />
 
