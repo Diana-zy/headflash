@@ -12,7 +12,12 @@
       >
         {{ readMoreText[newInfo.language] || readMoreText["en"] }}
       </div>
-      <google-ad-preload class="google-ad-preload" ad-slot="7583463276" />
+      <!-- <google-ad-preload class="google-ad-preload" ad-slot="7583463276" /> -->
+      <adm-slot-preload
+        class="google-ad-preload"
+        adm-id="detail-0"
+        adm-unit="/23197833490/headflash/headflash_detail_0"
+      />
 
       <NuxtImg
         format="auto"

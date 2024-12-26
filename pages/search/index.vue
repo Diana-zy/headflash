@@ -4,16 +4,28 @@
     <main class="main">
       <div id="relatedsearches1"> </div>
       <div id="afscontainer1"> </div>
-      <google-ad-preload
+      <!-- <google-ad-preload
         v-if="noAd"
         title="Non-search result Ad"
         ad-slot="6864443826"
-      ></google-ad-preload>
-      <google-ad-preload
+      ></google-ad-preload> -->
+      <adm-slot-preload
+        v-if="noAd"
+        title="Non-search result Ad"
+        adm-id="search-0"
+        adm-unit="/23197833490/headflash/headflash_search_0"
+      />
+      <!-- <google-ad-preload
         v-if="noAd2"
         title="Non-search result Ad"
         ad-slot="5519572568"
-      ></google-ad-preload>
+      ></google-ad-preload> -->
+      <adm-slot-preload
+        v-if="noAd2"
+        title="Non-search result Ad"
+        adm-id="search-1"
+        adm-unit="/23197833490/headflash/headflash_search_1"
+      />
       <div id="relatedstyle2"> </div>
       <div id="relatedsearches2"> </div>
       <h2 class="title-h2">Web Results</h2>
