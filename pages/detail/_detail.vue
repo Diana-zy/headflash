@@ -12,12 +12,11 @@
       >
         {{ readMoreText[newInfo.language] || readMoreText["en"] }}
       </div>
-      <!-- <google-ad-preload class="google-ad-preload" ad-slot="7583463276" /> -->
-      <adm-slot-preload
+      <!-- <adm-slot-preload
         class="google-ad-preload"
         adm-id="detail-0"
         adm-unit="/23197833490/headflash/headflash_detail_0"
-      />
+      /> -->
 
       <NuxtImg
         format="auto"
@@ -30,18 +29,18 @@
         preload
       />
       <!-- eslint-disable vue/no-v-html -->
-      <!-- <div
+      <div
         class="news-detail"
         :class="{ hide: newInfo.channel, show: readMore }"
         v-html="newInfo.content"
-      ></div> -->
+      ></div>
       <!--eslint-enable-->
 
-      <article-with-ads
+      <!-- <article-with-ads
         :class="{ hide: newInfo.channel, show: readMore }"
         :content="newInfo.content"
         :char-interval="800"
-      />
+      /> -->
     </article>
     <Footer :lang="newInfo.language" />
   </div>

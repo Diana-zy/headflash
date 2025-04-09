@@ -2,11 +2,11 @@
   <div class="page">
     <main class="main">
       <!-- <google-ad-small class="small-ad-1" ad-slot="1809420083" /> -->
-      <adm-slot-preload-small
+      <!-- <adm-slot-preload-small
         class="small-ad-1"
         adm-id="content-0"
         adm-unit="/23197833490/headflash/headflash_content_0"
-      />
+      /> -->
       <section class="home-search">
         <div class="search-group">
           <input
@@ -22,7 +22,7 @@
       </section>
       <div id="relatedsearches1"> </div>
       <!-- <google-ad ad-slot="2955836717" /> -->
-      <adm-slot-preload adm-id="content-1" adm-unit="/23197833490/headflash/headflash_content_1" />
+      <!-- <adm-slot-preload adm-id="content-1" adm-unit="/23197833490/headflash/headflash_content_1" /> -->
     </main>
     <Footer />
   </div>

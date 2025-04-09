@@ -10,8 +10,9 @@
       crossorigin="anonymous"
       data-overlays="bottom"
     ></script> -->
-    <link rel="preload" href="https://securepubads.g.doubleclick.net/tag/js/gpt.js" as="script" />
-    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+
+    <!-- <link rel="preload" href="https://securepubads.g.doubleclick.net/tag/js/gpt.js" as="script" />
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
 
     <script async="async" src="https://www.google.com/adsense/search/ads.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -36,7 +37,7 @@
       gtag("config", "G-REMV44HR3E");
     </script>
 
-    <script>
+    <!-- <script>
       window.googletag = window.googletag || { cmd: [] };
       let interstitialSlot, anchorSlot;
 
@@ -71,7 +72,7 @@
         }
         googletag.enableServices();
       });
-    </script>
+    </script> -->
 
     <!-- Google Tag Manager -->
     <script>
@@ -109,29 +110,6 @@
         });
       });
     </script>
-    <script
-      async
-      src="https://fundingchoicesmessages.google.com/i/pub-1853000876464912?ers=1"
-    ></script>
-    <script>
-      (function () {
-        function signalGooglefcPresent() {
-          if (!window.frames["googlefcPresent"]) {
-            if (document.body) {
-              const iframe = document.createElement("iframe");
-              iframe.style =
-                "width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;";
-              iframe.style.display = "none";
-              iframe.name = "googlefcPresent";
-              document.body.appendChild(iframe);
-            } else {
-              setTimeout(signalGooglefcPresent, 0);
-            }
-          }
-        }
-        signalGooglefcPresent();
-      })();
-    </script>
   </head>
   <body {{ BODY_ATTRS }} tabindex="0">
     <!-- Google Tag Manager (noscript) -->
@@ -146,10 +124,10 @@
     <!-- End Google Tag Manager (noscript) -->
     {{ APP }}
     <script>
-      googletag.cmd.push(() => {
-        googletag.display(interstitialSlot);
-        googletag.display(anchorSlot);
-      });
+      // googletag.cmd.push(() => {
+      //   googletag.display(interstitialSlot);
+      //   googletag.display(anchorSlot);
+      // });
 
       window.isUnloaded = false;
       window.done = false;
