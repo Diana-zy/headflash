@@ -197,9 +197,11 @@ export default {
   },
   methods: {
     addAdSenseScript() {
-      console.log("addAdSenseScript", this.newInfo.terms);
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
+      let terms = searchParams.has("terms") ? searchParams.get("terms") : "";
+      const kw = searchParams.has("kw") ? searchParams.get("kw") : "";
+      terms = terms.replace(/[，]/g, ",");
       const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
       // 遍历查询参数并将其添加到 paramKeys 数组中
@@ -219,8 +221,8 @@ export default {
           clickId && `&click_id=${clickId}`
         }`,
         resultsPageQueryParam: "query",
-        terms: this.newInfo.terms,
-        referrerAdCreative: this.newInfo.referrer_ad_creative,
+        terms: terms || this.newInfo.terms,
+        referrerAdCreative: kw || this.newInfo.referrer_ad_creative,
         ivt: false,
         adtest: "off"
       };
@@ -233,7 +235,7 @@ export default {
           adsafe: "low",
           ignoredPageParams,
           relatedSearchTargeting: "query",
-          query: this.newInfo.terms.split(",")[0],
+          query: terms ? terms.split(",")[0] : this.newInfo.terms.split(",")[0],
           ivt: false,
           resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
             clickId && `&click_id=${clickId}`
