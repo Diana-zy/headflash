@@ -101,7 +101,7 @@ export default {
           content: this.newInfo.name
         },
         {
-          hid: "og:description",
+          hid: "og:description", 
           property: "og:description",
           content: this.newInfo.first_paragraph
         },
