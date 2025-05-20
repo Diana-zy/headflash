@@ -68,7 +68,6 @@ export default {
     return {
       channelId: "",
       readMore: false,
-      // showDesc: false,
       readMoreText: {
         pt: "Leia Mais>>", // 葡萄牙语
         en: "Read More>>",
@@ -101,7 +100,7 @@ export default {
           content: this.newInfo.name
         },
         {
-          hid: "og:description", 
+          hid: "og:description",
           property: "og:description",
           content: this.newInfo.first_paragraph
         },
@@ -131,6 +130,10 @@ export default {
   mounted: function () {
     // 获取 URL 查询参数
     const searchParams = new URLSearchParams(window.location.search);
+    // eslint-disable-next-line eqeqeq
+    if (searchParams.has("show") && searchParams.get("show") == 1) {
+      this.readMore = true;
+    }
     // AdSense 配置参数
     if (searchParams.has("channel")) {
       this.channelId = searchParams.get("channel");
