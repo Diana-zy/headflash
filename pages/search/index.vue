@@ -79,18 +79,19 @@ export default {
 
       const from = getParam("from");
       const channelId = getParam("channel");
-
+      const styleId = getParam("styleId");
+      const theme = getParam("theme");
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
         pubId: "partner-pub-1853000876464912",
         query: queryString,
-        styleId: "8180986228",
+        styleId: styleId || "8180986228",
         adsafe: "low",
         ivt: false,
         resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${channelId}${
-          from ? `&from=${from}` : ""
-        }`,
+          from && `&from=${from}`
+        }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
         resultsPageQueryParam: "query"
       };
 

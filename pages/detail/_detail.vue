@@ -201,6 +201,8 @@ export default {
       const searchParams = new URLSearchParams(window.location.search);
       let terms = searchParams.has("terms") ? searchParams.get("terms") : "";
       const kw = searchParams.has("kw") ? searchParams.get("kw") : "";
+      const styleId = searchParams.has("styleId") ? searchParams.get("styleId") : "";
+      const theme = searchParams.has("theme") ? searchParams.get("theme") : "";
       terms = terms.replace(/[，]/g, ",");
       const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
@@ -213,13 +215,13 @@ export default {
       let adSenseConfig = {
         channel: this.channelId,
         pubId: "partner-pub-1853000876464912",
-        styleId: "8180986228",
+        styleId: styleId || "8180986228",
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
         resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
           clickId && `&click_id=${clickId}`
-        }`,
+        }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
         resultsPageQueryParam: "query",
         terms: terms || this.newInfo.terms,
         referrerAdCreative: kw || this.newInfo.referrer_ad_creative,
@@ -231,7 +233,7 @@ export default {
         adSenseConfig = {
           channel: this.channelId,
           pubId: "partner-pub-1853000876464912",
-          styleId: "8180986228",
+          styleId: styleId || "8180986228",
           adsafe: "low",
           ignoredPageParams,
           relatedSearchTargeting: "query",
@@ -239,7 +241,7 @@ export default {
           ivt: false,
           resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
             clickId && `&click_id=${clickId}`
-          }`,
+          }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
           resultsPageQueryParam: "query"
         };
       }

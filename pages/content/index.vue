@@ -62,11 +62,13 @@ export default {
       // const ignoredPageParams = paramKeys.join(",");
       const channelId = searchParams.has("channel") ? searchParams.get("channel") : null;
       const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
+      const styleId = searchParams.has("styleId") ? searchParams.get("styleId") : "";
+      const theme = searchParams.has("theme") ? searchParams.get("theme") : "";
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
         pubId: "partner-pub-1853000876464912",
-        styleId: "8180986228",
+        styleId: styleId || "8180986228",
         adsafe: "low",
         // ignoredPageParams,
         // relatedSearchTargeting: "query",
@@ -74,7 +76,7 @@ export default {
           window.location.origin
         }/search/?afs&from=content&partner_param=param&channel=${channelId}${
           clickId && `&click_id=${clickId}`
-        }`,
+        }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
         resultsPageQueryParam: "query",
         query: `${this.input}`,
         ivt: false,
