@@ -48,7 +48,7 @@ export default {
     bottom: 0;
     width: calc(100% - 344px);
     height: 1px;
-    background: rgba($font1, 0.1);
+    background: $background-font-1;
   }
   .img {
     position: absolute;
@@ -66,7 +66,7 @@ export default {
     font-size: 12px;
     font-family: "sesb";
     color: $color1;
-    background: rgba($color1, 0.2);
+    background: $background;
     border-radius: 4px 4px 4px 4px;
     margin: 16px 0 8px;
   }
@@ -80,7 +80,7 @@ export default {
     transition: color 0.2s;
   }
   .desc {
-    color: rgba($font1, 0.6);
+    color: $background-font-6;
     line-height: 19px;
     font-family: "sesb";
     @include ellipsis(5);

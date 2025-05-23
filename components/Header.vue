@@ -137,7 +137,7 @@ export default {
   position: absolute;
   width: 32px;
   height: 32px;
-  background: rgba($color1, 0.2);
+  background: $background;
   border-radius: 850%;
   left: 202px;
   @include center;
@@ -164,7 +164,7 @@ export default {
   font-family: "sesb";
   &::placeholder {
     font-family: "se";
-    color: rgba($font1, 0.4);
+    color: $background-font-4;
   }
 }
 .icon-search {
@@ -221,7 +221,7 @@ export default {
 }
 
 .dropdown li:hover {
-  background: rgba($color1, 0.2);
+  background: $background;
   color: $color1;
 }
 .contact {
@@ -317,7 +317,7 @@ export default {
     font-family: "sesb";
     &::placeholder {
       font-family: "se";
-      color: rgba($font1, 0.4);
+      color: $background-font-4;
     }
   }
   .icon-search {

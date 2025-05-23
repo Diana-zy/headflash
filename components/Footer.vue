@@ -167,7 +167,7 @@ export default {
     font-family: "sesb";
     &::placeholder {
       font-family: "se";
-      color: rgba($font1, 0.4);
+      color: $background-font-4;
     }
   }
   .submit {
@@ -238,7 +238,7 @@ export default {
     padding-bottom: vw(16);
   }
   .introduction {
-    color: rgba($font1, 0.6);
+    color: $background-font-6;
     font-size: vw(24);
     line-height: vw(32);
     margin-top: vw(32);

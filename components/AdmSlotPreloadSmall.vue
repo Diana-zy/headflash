@@ -46,7 +46,7 @@ export default {
   height: 100px;
 }
 .title {
-  background: rgba($font1, 0.2);
+  background: $background-font-2;
   font-size: 12px;
   line-height: 24px;
   color: #fff;

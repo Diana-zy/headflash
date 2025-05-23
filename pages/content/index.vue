@@ -164,7 +164,7 @@ export default {
     padding-right: 126px;
     font-size: 12px;
     &::placeholder {
-      color: rgba($font1, 0.6);
+      color: $background-font-6;
     }
   }
   .icon-search {

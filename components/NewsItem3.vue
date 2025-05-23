@@ -36,7 +36,7 @@ export default {
   }
   .desc {
     line-height: 19px;
-    color: rgba($font1, 0.6);
+    color: $background-font-6;
     margin-bottom: 24px;
     @include ellipsis(7);
   }

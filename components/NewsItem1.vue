@@ -45,7 +45,7 @@ export default {
   }
   .desc {
     @include ellipsis(2);
-    color: rgba($font1, 0.6);
+    color: $background-font-6;
     line-height: 19px;
     height: 38px;
     margin: 0px 8px 11px;

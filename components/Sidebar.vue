@@ -110,7 +110,7 @@ export default {
     padding-left: vw(46);
     cursor: pointer;
     &:hover {
-      background: rgba($color1, 0.2);
+      background: $background;
       color: $color1;
     }
   }
@@ -131,7 +131,7 @@ export default {
   font-family: "sesb";
   &::placeholder {
     font-family: "se";
-    color: rgba($font1, 0.4);
+    color: $background-font-4;
   }
 }
 .icon-search {

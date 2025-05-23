@@ -1,3 +1,4 @@
+
 body {
   color: $font1;
   font-size: 14px;
@@ -12,6 +13,7 @@ main {
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: content-box;
+  background: $background-theme;
 }
 .pc-hidden {
   display: none;

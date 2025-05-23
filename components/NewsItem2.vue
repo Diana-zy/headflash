@@ -48,7 +48,7 @@ export default {
     font-size: 12px;
     font-family: "sesb";
     color: $color1;
-    background: rgba($color1, 0.2);
+    background: $background;
     border-radius: 4px 4px 4px 4px;
     margin: 16px 0 8px;
   }
