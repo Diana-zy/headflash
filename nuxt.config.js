@@ -18,7 +18,7 @@ export default {
         `${process.env.PROD_API_URL}/api/article/get_all_path?site_id=${process.env.SITE_ID}`
       );
       const path = await pathData.json();
-      const categoryPaths = path.data.category.map((item) => `/category/${item}/`);
+      const categoryPaths = path.data.category.map((item) => `/category/${item}`);
       const detailPaths = path.data.detail.map((item) => `/detail/${item}/`);
       const urls = [...categoryPaths, ...detailPaths];
       return urls;
@@ -91,7 +91,14 @@ export default {
   },
   modules: ["@nuxtjs/axios"],
   sitemap: {
-    hostname: "https://headflash.net/"
+    path: "/sitemap.xml",
+    hostname: "https://headflash.net/",
+    sitemaps: [
+      {
+        path: "/sitemap-0.xml",
+        trailingSlash: true
+      }
+    ]
   },
   pwa: {
     manifest: {
