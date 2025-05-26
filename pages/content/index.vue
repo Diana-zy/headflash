@@ -106,6 +106,7 @@ export default {
               // eslint-disable-next-line no-undef
               dataLayer.push({
                 event: "C_AC_IN",
+                queryNum: 18,
                 num: result,
                 key1: numberOfKeys,
                 key2: concatenatedKeys

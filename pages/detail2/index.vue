@@ -101,7 +101,6 @@ export default {
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
       let terms = searchParams.has("terms") ? searchParams.get("terms") : "";
-      const kw = searchParams.has("kw") ? searchParams.get("kw") : "";
       terms = terms.replace(/[，]/g, ",");
       const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
@@ -123,7 +122,7 @@ export default {
         }`,
         resultsPageQueryParam: "query",
         terms: terms || this.newInfo.terms,
-        referrerAdCreative: kw || this.newInfo.referrer_ad_creative,
+        referrerAdCreative: terms || this.newInfo.referrer_ad_creative,
         ivt: false,
         adtest: "off"
       };
@@ -176,6 +175,7 @@ export default {
               // eslint-disable-next-line no-undef
               dataLayer.push({
                 event: "C_AC_IN",
+                queryNum: 10,
                 num: result,
                 key1: numberOfKeys,
                 key2: concatenatedKeys
