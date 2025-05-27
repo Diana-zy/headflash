@@ -233,7 +233,7 @@
         eventName && dataLayer.push({ event: eventName,
           hi_fingerprint: window.hi_Info.hi_fingerprint,
           hi_ip: window.hi_Info.hi_ip,
-          src
+          src:src.includes('?') ? src.split("?")[1] : src,
         });
         window.done = true;
       });
