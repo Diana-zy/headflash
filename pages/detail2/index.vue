@@ -101,7 +101,6 @@ export default {
       // 获取 URL 查询参数
       const searchParams = new URLSearchParams(window.location.search);
       let terms = searchParams.has("terms") ? searchParams.get("terms") : "";
-      const kw = searchParams.has("kw") ? searchParams.get("kw") : "";
       const styleId = searchParams.has("styleId") ? searchParams.get("styleId") : "";
       const theme = searchParams.has("theme") ? searchParams.get("theme") : "";
       terms = terms.replace(/[，]/g, ",");
@@ -125,7 +124,7 @@ export default {
         }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
         resultsPageQueryParam: "query",
         terms: terms || this.newInfo.terms,
-        referrerAdCreative: kw || this.newInfo.referrer_ad_creative,
+        referrerAdCreative: terms || this.newInfo.referrer_ad_creative,
         ivt: false,
         adtest: "off"
       };
@@ -178,6 +177,7 @@ export default {
               // eslint-disable-next-line no-undef
               dataLayer.push({
                 event: "C_AC_IN",
+                queryNum: 10,
                 num: result,
                 key1: numberOfKeys,
                 key2: concatenatedKeys
