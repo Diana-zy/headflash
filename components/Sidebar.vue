@@ -75,7 +75,7 @@ export default {
   left: 0;
   height: 100%;
   width: vw(670);
-  background: #fff;
+  background: $background-theme;
   transition: transform 0.3s ease;
   z-index: 50;
   &::before {
