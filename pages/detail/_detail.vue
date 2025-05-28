@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       channelId: "",
-      readMore: false,
+      readMore: true,
       readMoreText: {
         pt: "Leia Mais>>", // 葡萄牙语
         en: "Read More>>",
