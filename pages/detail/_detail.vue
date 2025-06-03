@@ -5,18 +5,6 @@
       <h1 class="article-title">{{ newInfo.name }}</h1>
       <div class="news-detail">{{ newInfo.first_paragraph }}</div>
       <div id="relatedsearches1"> </div>
-      <div
-        class="read-more"
-        :class="{ hide: readMore || !newInfo.channel }"
-        @click="readMore = true"
-      >
-        {{ readMoreText[newInfo.language] || readMoreText["en"] }}
-      </div>
-      <!-- <adm-slot-preload
-        class="google-ad-preload"
-        adm-id="detail-0"
-        adm-unit="/23197833490/headflash/headflash_detail_0"
-      /> -->
 
       <NuxtImg
         format="auto"
@@ -25,22 +13,10 @@
         :src="newInfo.cover"
         :alt="newInfo.name"
         class="article-img"
-        :class="{ hide: newInfo.channel, show: readMore }"
         preload
       />
       <!-- eslint-disable vue/no-v-html -->
-      <div
-        class="news-detail"
-        :class="{ hide: newInfo.channel, show: readMore }"
-        v-html="newInfo.content"
-      ></div>
-      <!--eslint-enable-->
-
-      <!-- <article-with-ads
-        :class="{ hide: newInfo.channel, show: readMore }"
-        :content="newInfo.content"
-        :char-interval="800"
-      /> -->
+      <div class="news-detail" v-html="newInfo.content"></div>
     </article>
     <Footer :lang="newInfo.language" />
   </div>
@@ -66,15 +42,7 @@ export default {
   },
   data() {
     return {
-      channelId: "",
-      readMore: true,
-      readMoreText: {
-        pt: "Leia Mais>>", // 葡萄牙语
-        en: "Read More>>",
-        ja: "続きを読む>>",
-        ko: "더 읽기>>",
-        zh_TW: "閱讀更多>>"
-      }
+      channelId: ""
     };
   },
   head() {
@@ -130,10 +98,6 @@ export default {
   mounted: function () {
     // 获取 URL 查询参数
     const searchParams = new URLSearchParams(window.location.search);
-    // eslint-disable-next-line eqeqeq
-    if (searchParams.has("show") && searchParams.get("show") == 1) {
-      this.readMore = true;
-    }
     // AdSense 配置参数
     if (searchParams.has("channel")) {
       this.channelId = searchParams.get("channel");

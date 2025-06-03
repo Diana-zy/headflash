@@ -6,13 +6,6 @@
         <h1 class="article-title">{{ newInfo.name }}</h1>
         <div class="news-detail">{{ newInfo.first_paragraph }}</div>
         <div id="relatedsearches1"> </div>
-        <div
-          class="read-more"
-          :class="{ hide: readMore || !newInfo.channel }"
-          @click="readMore = true"
-        >
-          {{ readMoreText[newInfo.language] || readMoreText["en"] }}
-        </div>
         <NuxtImg
           format="auto"
           fit="cover"
@@ -20,14 +13,9 @@
           :src="newInfo.cover"
           :alt="newInfo.name"
           class="article-img"
-          :class="{ hide: newInfo.channel, show: readMore }"
           preload
         />
-        <div
-          class="news-detail"
-          :class="{ hide: newInfo.channel, show: readMore }"
-          v-html="newInfo.content"
-        ></div>
+        <div class="news-detail" v-html="newInfo.content"></div>
       </article>
       <Footer :lang="newInfo.language" />
     </template>
@@ -40,14 +28,6 @@ export default {
   data() {
     return {
       channelId: "",
-      readMore: false,
-      readMoreText: {
-        pt: "Leia Mais>>", // 葡萄牙语
-        en: "Read More>>",
-        ja: "続きを読む>>",
-        ko: "더 읽기>>",
-        zh_TW: "閱讀更多>>"
-      },
       newInfo: null,
       pageViewInitTime: 0,
       pageQueryAfsTime: 0
@@ -80,10 +60,6 @@ export default {
     },
     setChannelId() {
       const searchParams = new URLSearchParams(window.location.search);
-      // eslint-disable-next-line eqeqeq
-      if (searchParams.has("show") && searchParams.get("show") == 1) {
-        this.readMore = true;
-      }
       if (searchParams.has("channel")) {
         this.channelId = searchParams.get("channel");
       } else {
