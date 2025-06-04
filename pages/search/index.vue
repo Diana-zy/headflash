@@ -82,6 +82,7 @@ export default {
 
       // 获取 URL 查询参数的工具函数
       const getParam = (key) => (searchParams.has(key) ? searchParams.get(key) : "");
+      // const num = getParam("adNum");
 
       const from = getParam("from");
       const channelId = getParam("channel");
@@ -113,7 +114,8 @@ export default {
 
       const adblock1 = {
         container: "afscontainer1",
-        number: 8,
+        // number: num && Number(num) < 8 ? Number(num) : 8,
+        number: this.channelId === "8609578834" ? 3 : 8,
         adLoadedCallback: (loaded, e) => {
           if (e) {
             // eslint-disable-next-line no-undef
