@@ -4,15 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     {{ HEAD }}
-    <!-- <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1853000876464912"
-      crossorigin="anonymous"
-      data-overlays="bottom"
-    ></script> -->
-
-    <!-- <link rel="preload" href="https://securepubads.g.doubleclick.net/tag/js/gpt.js" as="script" />
-    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
+    <script src="/linkMarking.js"></script>
+    <script>
+      const searchParams = new URLSearchParams(window.location.search);
+      const ttclid = searchParams.get("ttclid");
+      if (ttclid) {
+        window.setCookie("hi_ttclid", ttclid);
+      }
+      const script = document.createElement("script");
+      script.src = "https://wc.bunchthings.com/youknowwho.js?" + Date.now();
+      document.head.appendChild(script);
+      script.onload = function () {
+        const pathname = window.location.pathname;
+        if (pathname.startsWith("/detail")) {
+          window.pushEventParamsToGtm("D_PV");
+        } else if (pathname.startsWith("/search/")) {
+          window.pushEventParamsToGtm("S_PV");
+        }
+      };
+    </script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
       // VConsole 默认会挂载到 `window.VConsole` 上
@@ -21,7 +31,6 @@
         var vConsole = new window.VConsole();
       }
     </script>
-    <script src="/fingerprint.js" type="text/javascript"></script>
     <script async="async" src="https://www.google.com/adsense/search/ads.js"></script>
     <script type="text/javascript" charset="utf-8">
       (function (g, o) {
@@ -44,43 +53,6 @@
 
       gtag("config", "G-REMV44HR3E");
     </script>
-
-    <!-- <script>
-      window.googletag = window.googletag || { cmd: [] };
-      let interstitialSlot, anchorSlot;
-
-      googletag.cmd.push(function () {
-        interstitialSlot = googletag.defineOutOfPageSlot(
-          "/23197833490/headflash/headflash_interstitial",
-          googletag.enums.OutOfPageFormat.INTERSTITIAL
-        );
-
-        if (interstitialSlot) {
-          interstitialSlot.addService(googletag.pubads()).setConfig({
-            interstitial: {
-              triggers: {
-                navBar: true,
-                unhideWindow: true
-              }
-            }
-          });
-          googletag.pubads().addEventListener("slotOnload", (event) => {
-            if (interstitialSlot === event.slot) {
-              console.log("Interstitial is loaded.");
-            }
-          });
-        }
-        anchorSlot = googletag.defineOutOfPageSlot(
-          "/23197833490/headflash/headflash_anchor",
-          googletag.enums.OutOfPageFormat.TOP_ANCHOR
-        );
-
-        if (anchorSlot) {
-          anchorSlot.addService(googletag.pubads());
-        }
-        googletag.enableServices();
-      });
-    </script> -->
 
     <!-- Google Tag Manager -->
     <script>
@@ -120,20 +92,31 @@
     </script>
   </head>
   <body {{ BODY_ATTRS }} tabindex="0">
-  <script>
-    if(window.location.search.includes('theme=dark') && !['/'].includes(window.location.pathname) ){
-      // document.getElementsByTagName('body')[0].style.setProperty('--color1', 'blue');
-      // document.getElementsByTagName('body')[0].style.setProperty('--color2', 'blue');
-      document.getElementsByTagName('body')[0].style.setProperty('--font1', '#E6E6E6');
-      // document.getElementsByTagName('body')[0].style.setProperty('--font2', 'blue');
-      document.getElementsByTagName('body')[0].style.setProperty('--background-theme', '#000000');
-      // document.getElementsByTagName('body')[0].style.setProperty('--background', 'rgba(#e30016, 0.2)');
-      document.getElementsByTagName('body')[0].style.setProperty('--background-font-1', 'rgba(#E6E6E6, 0.1)');
-      document.getElementsByTagName('body')[0].style.setProperty('--background-font-2', 'rgba(#E6E6E6, 0.2)');
-      document.getElementsByTagName('body')[0].style.setProperty('--background-font-4', 'rgba(#E6E6E6, 0.4)');
-      document.getElementsByTagName('body')[0].style.setProperty('--background-font-6', 'rgba(#E6E6E6, 0.6)');
-    }
-  </script>
+    <script>
+      if (
+        window.location.search.includes("theme=dark") &&
+        !["/"].includes(window.location.pathname)
+      ) {
+        // document.getElementsByTagName('body')[0].style.setProperty('--color1', 'blue');
+        // document.getElementsByTagName('body')[0].style.setProperty('--color2', 'blue');
+        document.getElementsByTagName("body")[0].style.setProperty("--font1", "#E6E6E6");
+        // document.getElementsByTagName('body')[0].style.setProperty('--font2', 'blue');
+        document.getElementsByTagName("body")[0].style.setProperty("--background-theme", "#000000");
+        // document.getElementsByTagName('body')[0].style.setProperty('--background', 'rgba(#e30016, 0.2)');
+        document
+          .getElementsByTagName("body")[0]
+          .style.setProperty("--background-font-1", "rgba(#E6E6E6, 0.1)");
+        document
+          .getElementsByTagName("body")[0]
+          .style.setProperty("--background-font-2", "rgba(#E6E6E6, 0.2)");
+        document
+          .getElementsByTagName("body")[0]
+          .style.setProperty("--background-font-4", "rgba(#E6E6E6, 0.4)");
+        document
+          .getElementsByTagName("body")[0]
+          .style.setProperty("--background-font-6", "rgba(#E6E6E6, 0.6)");
+      }
+    </script>
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -145,32 +128,11 @@
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
     {{ APP }}
-    <script src="/linkMarking.js"></script>
     <script>
-      // googletag.cmd.push(() => {
-      //   googletag.display(interstitialSlot);
-      //   googletag.display(anchorSlot);
-      // });
-
       window.isUnloaded = false;
       window.done = false;
 
       window.addEventListener("beforeunload", () => {
-        // 提取标志变量和事件索引
-        const elementUrlIndex = window.dataLayer.findIndex(
-          ({ event: eventType }) => "gtm.linkClick" === eventType
-        );
-
-        if (!window.isUnloaded && elementUrlIndex !== -1) {
-          // 处理穿插广告埋点逻辑
-          if (window.clickOpen === 1) {
-            dataLayer.push({ event: "D_AL" });
-          } else {
-            dataLayer.push({ event: "D_RE" });
-          }
-          window.isUnloaded = true;
-        }
-
         if (window.done) return;
         const activeElement = document.activeElement;
         const src = activeElement.getAttribute("src");
@@ -207,9 +169,9 @@
               bge("event", "button", { configId: "904831856669662464" });
             } catch (e) {}
             // bigo - end
-            eventName = "T_AR";
+            window.pushEventParamsToGtm("T_AR");
           } else {
-            eventName = "T_AC";
+            window.pushEventParamsToGtm("T_AC");
           }
         } else if (src && src.indexOf("afs/ads/i/") !== -1) {
           // 点击购物广告
@@ -236,42 +198,12 @@
             });
           } catch (e) {}
           // 快手 - end
-        } else {
-          let elementUrlIndex = window.dataLayer.findIndex(
-            ({ event: eventType }) => "gtm.linkClick" === eventType
-          );
-          if (-1 !== elementUrlIndex) {
-            eventName = "D_RE";
-          }
         }
         eventName &&
           dataLayer.push({
-            event: eventName,
-            hi_fingerprint: window.hi_Info.hi_fingerprint,
-            hi_ip: window.hi_Info.hi_ip,
-            src: src.includes("?") ? src.split("?")[1] : src
+            event: eventName
           });
         window.done = true;
-      });
-
-      // 监听 hash 变化事件 --- 判断穿插全屏广告出现
-      window.addEventListener("hashchange", () => {
-        if ("#google_vignette" == window.location.hash) {
-          window.clickOpen = 1;
-          // 触发穿插
-          dataLayer.push({ event: "C_AL" });
-        }
-      });
-
-      // 监听消息事件
-      window.addEventListener("message", (event) => {
-        if (
-          '{"eventType":"adClosed","result":{"status":1},"googMsgType":"fullscreen"}' === event.data
-        ) {
-          window.clickOpen = 0;
-          // 关闭穿插广告
-          dataLayer.push({ event: "G_AL" });
-        }
       });
 
       // 监听失去焦点事件
@@ -284,42 +216,12 @@
         if (sourceAttribute && sourceAttribute.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
             dataLayer.push({
-              event: "D_AR",
-              hi_fingerprint: window.hi_Info.hi_fingerprint,
-              hi_ip: window.hi_Info.hi_ip,
-              ua: window.navigator.userAgent
+              event: "D_AR"
             });
           } else {
             dataLayer.push({ event: "D_AC" });
           }
         }
-
-        //页内广告埋点
-        if (
-          sourceAttribute1 &&
-          -1 !== sourceAttribute1.indexOf("google_ads_iframe_/23197833490") &&
-          -1 === sourceAttribute1.indexOf("anchor_0")
-        ) {
-          let adStatus = "false";
-          if (activeElement) {
-            adStatus = activeElement.getAttribute("data-load-complete") || adStatus;
-          }
-          if ("true" == adStatus) {
-            // 点击页内广告
-            dataLayer.push({ event: "D_IP" });
-          }
-        } else if (sourceAttribute1 && -1 !== sourceAttribute1.indexOf("anchor_0")) {
-          // 点击锚定广告
-          dataLayer.push({ event: "D_FI" });
-        }
-
-        //adm锚定
-        // if (
-        //   activeElement.getAttribute("name") &&
-        //   activeElement.getAttribute("name").indexOf("anchor_0") !== -1
-        // ) {
-        //   dataLayer.push({ event: "D_FI" });
-        // }
       });
 
       window.addEventListener("visibilitychange", () => {

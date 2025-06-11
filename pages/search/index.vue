@@ -119,7 +119,7 @@ export default {
         adLoadedCallback: (loaded, e) => {
           if (e) {
             // eslint-disable-next-line no-undef
-            dataLayer.push({ event: "C_AR" });
+            window.pushEventParamsToGtm("C_AR");
             if (window.getDetailIsClickAc()) {
               window.dataLayer.push({
                 event: "C_AR_C"
