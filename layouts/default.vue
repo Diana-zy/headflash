@@ -32,16 +32,10 @@ export default {
         if (Number(currentScrollPercentage) > Number(self.maxScrollPercentage)) {
           self.maxScrollPercentage = currentScrollPercentage;
         }
-        console.log(
-          currentScrollPercentage > self.maxScrollPercentage,
-          currentScrollPercentage,
-          self.maxScrollPercentage,
-          "self.maxScrollPercentage"
-        );
       });
       window.addEventListener("beforeunload", () => {
         window.dataLayer.push({
-          event: "scroll_depth",
+          event: "scroll_depth" + "_" + this.handleFormat(this.maxScrollPercentage),
           hi_depth: this.handleFormat(this.maxScrollPercentage)
         });
       });
@@ -49,6 +43,8 @@ export default {
     handleFormat(val) {
       if (val <= 10) {
         return "0_10%";
+      } else if (val >= 80) {
+        return "81_100%";
       } else {
         return `${Math.floor(val / 10)}1_${Math.floor(val / 10) + 1}0%`;
       }
