@@ -41,12 +41,12 @@ export default {
       });
     },
     handleFormat(val) {
-      if (val <= 10) {
-        return "0_10%";
+      if (val <= 20) {
+        return "0_20%";
       } else if (val >= 80) {
         return "81_100%";
       } else {
-        return `${Math.floor(val / 10)}1_${Math.floor(val / 10) + 1}0%`;
+        return `${Math.floor(val / 20) * 2}1_${Math.floor(val / 20) * 2 + 2}0%`;
       }
     }
   }
