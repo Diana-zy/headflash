@@ -57,6 +57,7 @@ window.addEventListener("blur", () => {
 
 // eslint-disable-next-line no-unused-vars
 function pushEventParamsToGtm(eventName) {
+  window.dataLayer = window.dataLayer || [];
   const searchParams = new URLSearchParams(window.location.search);
   const ttclid = searchParams.get("ttclid");
   window.dataLayer.push({

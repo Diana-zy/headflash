@@ -1,9 +1,9 @@
 <template>
-  <div v-show="!hide" class="page">
-    <Header v-if="!subdomain" />
+  <div class="page">
+    <Header />
     <main class="main">
-      <div id="relatedsearches1"> </div>
       <div id="afscontainer1"> </div>
+      <div id="relatedsearches1"> </div>
       <!-- <adm-slot-preload
         v-if="noAd"
         title="Non-search result Ad"
@@ -16,8 +16,6 @@
         adm-id="search-1"
         adm-unit="/23197833490/headflash/headflash_search_1"
       /> -->
-      <div id="relatedstyle2"> </div>
-      <div id="relatedsearches2"> </div>
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
         <news-item-3 v-for="(item, i) in news" :key="i" :item="item"> </news-item-3>
@@ -34,24 +32,34 @@ export default {
       news: [], // 新闻列表
       input: "", // 搜索输入
       channelId: "", // 频道 ID
-      subdomain: false,
-      hide: true,
       noAd: false,
       noAd2: false
     };
   },
   mounted() {
+    if (
+      !window.getCookie("first") &&
+      window.getCookie("mounted") &&
+      window.getCookie("query_ad") &&
+      window.getCookie("click_ad")
+    ) {
+      // 符合前置条件，则可以请求广告（暂不限制）
+      window.setCookie("first", 999, 1);
+    }
     if (window.getDetailIsClickAc()) {
       window.dataLayer.push({
         event: "S_PL"
       });
     }
 
-    window.location.hostname.includes("s.") && (this.subdomain = true);
-    this.hide = false;
-
     this.input = this.$route.query.query || "";
-    this.input && this.addAdSense();
+    if (window.isLoadAd === true) {
+      this.input && this.addAdSense();
+    } else {
+      window.addEventListener("loadAd", () => {
+        this.input && this.addAdSense();
+      });
+    }
     this.input && this.searchNews();
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -60,7 +68,17 @@ export default {
   methods: {
     addAdSense() {
       setTimeout(() => {
-        this.addAdSenseScript();
+        const buffer = window.getCookie("first");
+        if (buffer && buffer !== "ok") {
+          window.trackEventToPixel("Q_AR");
+          window.pushEventParamsToGtm("Q_AR");
+          this.addAdSenseScript();
+          if (Number(buffer) > 1) {
+            window.setCookie("first", Number(buffer) - 1, 1);
+          } else {
+            window.setCookie("first", "ok", 1);
+          }
+        }
       }, 0);
     },
     async searchNews() {
@@ -120,6 +138,7 @@ export default {
           if (e) {
             // eslint-disable-next-line no-undef
             window.pushEventParamsToGtm("C_AR");
+            window.trackEventToPixel("C_AR");
             if (window.getDetailIsClickAc()) {
               window.dataLayer.push({
                 event: "C_AR_C"
@@ -148,19 +167,10 @@ export default {
       // 根据来源配置 rsblock1
       const rsblock1 = (() => {
         const baseConfig = {
-          container: "",
-          relatedSearches: 0,
+          container: "relatedsearches1",
+          relatedSearches: 5,
           adLoadedCallback: adLoadedCallback("C_AC", { query: queryString })
         };
-
-        if (from === "home" || from === "content") {
-          baseConfig.container = this.subdomain ? "relatedsearches2" : "relatedsearches1";
-          baseConfig.relatedSearches = this.subdomain ? 5 : 4;
-        } else {
-          baseConfig.container = "relatedstyle2";
-          baseConfig.relatedSearches = 6;
-        }
-
         return baseConfig;
       })();
 
