@@ -225,6 +225,12 @@ export default {
       const styleId = searchParams.has("styleId") ? searchParams.get("styleId") : "";
       const theme = searchParams.has("theme") ? searchParams.get("theme") : "";
       terms = terms.replace(/[，]/g, ",");
+      // 获取Url携带的headline参数
+      let headline = searchParams.has("headline") ? searchParams.get("headline") : "";
+      if (headline === "{title}" || headline === "{{ad_title}}") {
+        headline = "";
+      }
+
       const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
       // 遍历查询参数并将其添加到 paramKeys 数组中
@@ -245,7 +251,7 @@ export default {
         }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
         resultsPageQueryParam: "query",
         terms: terms || this.newInfo.terms,
-        referrerAdCreative: terms || this.newInfo.referrer_ad_creative,
+        referrerAdCreative: headline || terms || this.newInfo.referrer_ad_creative,
         ivt: false,
         adtest: "off"
       };
