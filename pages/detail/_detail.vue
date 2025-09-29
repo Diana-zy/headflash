@@ -174,48 +174,6 @@ export default {
         }
       }
     }, 0);
-    let lastScrollTop = 0;
-    let scrolledUpFromBottom = false;
-    let flag1 = false;
-    let flag2 = false;
-    let flag3 = false;
-
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight;
-      const windowHeight = window.innerHeight;
-
-      // 判断用户是否向下滚动
-      if (scrollTop > lastScrollTop) {
-        scrolledUpFromBottom = false; // 如果用户向下滚动，重置标志
-        if (flag1 === false) {
-          // eslint-disable-next-line no-undef
-          dataLayer.push({ event: "SCROLL_D" });
-          flag1 = true;
-        }
-      }
-      // 判断用户是否向上滚动
-      else {
-        if (scrollTop + windowHeight >= docHeight - 5) {
-          // 加入小缓冲区以检测页面底部
-          scrolledUpFromBottom = true;
-        }
-
-        if (scrolledUpFromBottom) {
-          if (flag2 === false) {
-            // eslint-disable-next-line no-undef
-            dataLayer.push({ event: "SCROLL_BU" });
-            flag2 = true;
-          }
-        } else if (flag3 === false) {
-          // eslint-disable-next-line no-undef
-          dataLayer.push({ event: "SCROLL_U" });
-          flag3 = true;
-        }
-      }
-
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // 处理移动设备或负滚动
-    });
   },
   methods: {
     addAdSenseScript() {
@@ -231,7 +189,6 @@ export default {
         headline = "";
       }
 
-      const clickId = searchParams.has("click_id") ? searchParams.get("click_id") : "";
       const paramKeys = [];
       // 遍历查询参数并将其添加到 paramKeys 数组中
       for (const param of searchParams) {
@@ -239,6 +196,17 @@ export default {
       }
       const ignoredPageParams = paramKeys.join(",");
 
+      const channelId = window.getParam("channel");
+      const hiSource = window.getParam("hi_source");
+      const hiPc = window.getParam("hi_pc");
+      const resultsPageBaseUrl = window.getResultsPageUrl({
+        channel: channelId,
+        from: "detail",
+        hi_source: hiSource,
+        hi_pc: hiPc,
+        styleId,
+        theme
+      });
       const adSenseConfig = {
         channel: this.channelId,
         pubId: "partner-pub-1853000876464912",
@@ -246,9 +214,7 @@ export default {
         adsafe: "low",
         ignoredPageParams,
         relatedSearchTargeting: "content",
-        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${this.channelId}${
-          clickId && `&click_id=${clickId}`
-        }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
+        resultsPageBaseUrl,
         resultsPageQueryParam: "query",
         terms: terms || this.newInfo.terms,
         referrerAdCreative: headline || terms || this.newInfo.referrer_ad_creative,

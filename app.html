@@ -126,14 +126,6 @@
     </script>
     <!-- End Google Tag Manager -->
     <script>
-      window.bgdataLayer = window.bgdataLayer || [];
-      function bge() {
-        bgdataLayer.push(arguments);
-      }
-      bge("init", "904831856669662464");
-    </script>
-    <script async src="https://api.imotech.video/ad/events.js?pixel_id=904831856669662464"></script>
-    <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in window.navigator) {
           window.navigator.serviceWorker
@@ -212,38 +204,8 @@
           }
         }
 
-        const searchParams = new URLSearchParams(window.location.search);
-        const channelId = searchParams.has("channel") ? searchParams.get("channel") : "";
-
         if (src && src.indexOf("afs/ads?") !== -1) {
           if (activeElement.getAttribute("title")) {
-            // 快手 - start
-            try {
-              // 发送数据到服务器
-              fetch("http://www.adsnebula.com/log/common/api", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  access_token: "y0nbLvass0lrWxYORSc3ZnuWJxjHE28R6tEbMuKOYfg",
-                  clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
-                  event_name: "EVENT_ADD_TO_CART",
-                  pixelId: "261108496750613",
-                  testFlag: false,
-                  trackFlag: false, // 测试时为true, 正式投放时为false
-                  is_attributed: 1,
-                  mmpcode: "PL",
-                  pixelSdkVersion: "9.9.9"
-                })
-              });
-            } catch (e) {}
-            // 快手 - end
-            // bigo - start
-            try {
-              bge("event", "button", { configId: "904831856669662464" });
-            } catch (e) {}
-            // bigo - end
             window.pushEventParamsToGtm("T_AR");
             window.trackEventToPixel("T_AR");
           } else {
@@ -254,28 +216,6 @@
         } else if (src && src.indexOf("afs/ads/i/") !== -1) {
           // 点击购物广告
           eventName = "T_AG";
-          // 快手 - start
-          try {
-            // 发送数据到服务器
-            fetch("http://www.adsnebula.com/log/common/api", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                access_token: "3ISrR6AGATmm3353cvYTOiWtHDj02IaL_vwcIBljmPY",
-                clickid: searchParams.has("click_id") ? searchParams.get("click_id") : "",
-                event_name: "EVENT_ADD_TO_CART",
-                pixelId: "260351615285613",
-                testFlag: false,
-                trackFlag: false, //测试时为true, 正式投放时为false
-                is_attributed: 1,
-                mmpcode: "PL",
-                pixelSdkVersion: "9.9.9"
-              })
-            });
-          } catch (e) {}
-          // 快手 - end
         }
         eventName &&
           dataLayer.push({
@@ -306,6 +246,7 @@
         if (document.visibilityState === "visible") {
           setTimeout(() => {
             window.done = false;
+            window.done1 = false;
             document.body.focus();
           }, 0);
         }

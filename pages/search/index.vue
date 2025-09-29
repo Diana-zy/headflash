@@ -96,16 +96,21 @@ export default {
 
     addAdSenseScript() {
       const queryString = this.input;
-      const searchParams = new URLSearchParams(window.location.search);
 
-      // 获取 URL 查询参数的工具函数
-      const getParam = (key) => (searchParams.has(key) ? searchParams.get(key) : "");
-      // const num = getParam("adNum");
-
-      const from = getParam("from");
-      const channelId = getParam("channel");
-      const styleId = getParam("styleId");
-      const theme = getParam("theme");
+      const channelId = window.getParam("channel");
+      const hiSource = window.getParam("hi_source");
+      const hiPc = window.getParam("hi_pc");
+      const from = window.getParam("from");
+      const styleId = window.getParam("styleId");
+      const theme = window.getParam("theme");
+      const resultsPageBaseUrl = window.getResultsPageUrl({
+        channel: channelId,
+        from,
+        hi_source: hiSource,
+        hi_pc: hiPc,
+        styleId,
+        theme
+      });
       // 配置 AdSense 参数
       const adSenseConfig = {
         channel: channelId,
@@ -114,9 +119,7 @@ export default {
         styleId: styleId || "8180986228",
         adsafe: "low",
         ivt: false,
-        resultsPageBaseUrl: `${window.location.origin}/search/?afs&channel=${channelId}${
-          from && `&from=${from}`
-        }${styleId && `&styleId=${styleId}`}${theme && `&theme=${theme}`}`,
+        resultsPageBaseUrl,
         resultsPageQueryParam: "query"
       };
 
