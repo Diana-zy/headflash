@@ -216,15 +216,20 @@ function trackEventToPixel(eventKey) {
       window._tfa.push({ notify: "event", name: eventName, id: pixelId });
     } else if (source === "tiktok") {
       window.ttq?.instance(pixelId)?.track?.(eventName);
-      if(eventName === 'Purchase'){
-        window.ttq?.instance(pixelId)?.track?.('InitiateCheckout');
+      if (eventName === "Purchase") {
+        window.ttq?.instance(pixelId)?.track?.("InitiateCheckout");
       }
     } else if (source === "outbrain") {
       window.obApi?.("track", eventName);
     } else if (source === "pinterest") {
       window.pintrk?.("track", eventName);
     } else if (source === "facebook") {
-      window.fbq?.("track", eventName);
+      eventName === "Purchase"
+        ? window.fbq?.("track", eventName, {
+            currency: "USD",
+            value: 1
+          })
+        : window.fbq?.("track", eventName);
     }
   }
 }
