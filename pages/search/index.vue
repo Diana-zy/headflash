@@ -4,18 +4,6 @@
     <main class="main">
       <div id="afscontainer1"> </div>
       <div id="relatedsearches1"> </div>
-      <!-- <adm-slot-preload
-        v-if="noAd"
-        title="Non-search result Ad"
-        adm-id="search-0"
-        adm-unit="/23197833490/headflash/headflash_search_0"
-      />
-      <adm-slot-preload
-        v-if="noAd2"
-        title="Non-search result Ad"
-        adm-id="search-1"
-        adm-unit="/23197833490/headflash/headflash_search_1"
-      /> -->
       <h2 class="title-h2">Web Results</h2>
       <section class="news-box-3">
         <news-item-3 v-for="(item, i) in news" :key="i" :item="item"> </news-item-3>
@@ -31,9 +19,7 @@ export default {
     return {
       news: [], // 新闻列表
       input: "", // 搜索输入
-      channelId: "", // 频道 ID
-      noAd: false,
-      noAd2: false
+      channelId: "" // 频道 ID
     };
   },
   mounted() {
@@ -44,12 +30,7 @@ export default {
       window.getCookie("click_ad")
     ) {
       // 符合前置条件，则可以请求广告（暂不限制）
-      window.setCookie("first", 999, 1);
-    }
-    if (window.getDetailIsClickAc()) {
-      window.dataLayer.push({
-        event: "S_PL"
-      });
+      window.setCookie("first", 5);
     }
 
     this.input = this.$route.query.query || "";
@@ -76,7 +57,7 @@ export default {
           if (Number(buffer) > 1) {
             window.setCookie("first", Number(buffer) - 1, 1);
           } else {
-            window.setCookie("first", "ok", 1);
+            window.setCookie("first", "ok");
           }
         }
       }, 0);
@@ -139,14 +120,8 @@ export default {
         number: this.channelId === "8609578834" ? 3 : 8,
         adLoadedCallback: (loaded, e) => {
           if (e) {
-            // eslint-disable-next-line no-undef
             window.pushEventParamsToGtm("C_AR");
             window.trackEventToPixel("C_AR");
-            if (window.getDetailIsClickAc()) {
-              window.dataLayer.push({
-                event: "C_AR_C"
-              });
-            }
             try {
               const element = document.getElementById("master-1");
               const height = parseFloat(element.style.height);
@@ -157,10 +132,6 @@ export default {
               console.error(error);
             }
           } else {
-            this.noAd = true;
-            setTimeout(() => {
-              this.noAd2 = true;
-            }, 50);
             // eslint-disable-next-line no-undef
             dataLayer.push({ event: "FF_AR", query: queryString });
           }
