@@ -23,23 +23,39 @@ export default {
     };
   },
   mounted() {
-    if (
-      !window.getCookie("first") &&
-      window.getCookie("mounted") &&
-      window.getCookie("query_ad") &&
-      window.getCookie("click_ad")
-    ) {
-      // 符合前置条件，则可以请求广告（暂不限制）
-      window.setCookie("first", 5);
-    }
+    window.handleRequestAdByChannel("first", 3, true);
 
     this.input = this.$route.query.query || "";
-    if (window.isLoadAd === true) {
-      this.input && this.addAdSense();
-    } else {
-      window.addEventListener("loadAd", () => {
-        this.input && this.addAdSense();
-      });
+    if (this.input) {
+      // 未请求广告的原因统一上报到Q_AR_NOT事件，why_ad_block区分具体原因，
+      // 方便在GA4里统计"广告没请求"里各原因各占多少
+      const reportAdNotRequested = (why) => {
+        window.pushEventParamsToGtm("Q_AR_NOT", { why_ad_block: why });
+      };
+      const proceedAfterAdGate = () => {
+        window.checkAdGate().then((gate) => {
+          if (gate.ok) {
+            this.addAdSense();
+          } else {
+            reportAdNotRequested(
+              gate.ipMismatch ? "ip_mismatch" : gate.noClid ? "no_clid" : "unknown"
+            );
+          }
+        });
+      };
+      if (window.isLoadAd === true) {
+        proceedAfterAdGate();
+      } else {
+        window.addEventListener("loadAd", proceedAfterAdGate);
+        // 进站IP解析城市变化被拉黑：youknowwho.js里的判断会让loadAd事件
+        // 永远不触发（也就不会走到上面的checkAdGate），单独用另一个事件名
+        // 兜底监听，避免这种情况完全没有埋点
+        window.addEventListener(
+          "adGateCityBlocked",
+          () => reportAdNotRequested("city_changed"),
+          { once: true }
+        );
+      }
     }
     this.input && this.searchNews();
 
@@ -49,16 +65,10 @@ export default {
   methods: {
     addAdSense() {
       setTimeout(() => {
-        const buffer = window.getCookie("first");
-        if (buffer && buffer !== "ok") {
+        if (window.handleRequestAdByChannel("", "", true)) {
           window.trackEventToPixel("Q_AR");
           window.pushEventParamsToGtm("Q_AR");
           this.addAdSenseScript();
-          if (Number(buffer) > 1) {
-            window.setCookie("first", Number(buffer) - 1, 1);
-          } else {
-            window.setCookie("first", "ok");
-          }
         }
       }, 0);
     },
